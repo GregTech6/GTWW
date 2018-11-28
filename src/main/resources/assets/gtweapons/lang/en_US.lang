@@ -1,0 +1,30 @@
+item.gun_0.name=Pistol
+item.gun_1.name=Sub Machine Gun
+item.gun_2.name=Sniper
+item.gun_3.name=Blunderbuss
+item.gun_4.name=Assault Rifle
+item.gun_5.name=Burst Rifle
+item.gun_6.name=Bundlebuss
+
+item.unlockable_gun_0.name=Cyclone
+item.unlockable_gun_1.name=Tsunami
+item.unlockable_gun_2.name=Quickshot
+item.unlockable_gun_3.name=Old Faithful
+item.unlockable_gun_4.name=Revolver
+item.unlockable_gun_5.name=Hunting Rifle
+
+item.container_0.name=Magazine Casing
+item.container_1.name=Empty Blunderbuss shot
+
+item.scissors_0.name=Iron Scissors
+item.scissors_1.name=Bronze Scissors
+item.scissors_2.name=Spring Loaded Scissors
+item.scissors_3.name=Energy-Network Fixing Scissors
+
+item.grenade_0.name=Grenade
+item.grenade_1.name=Bomb
+item.grenade_2.name=Molotov Cocktail
+
+item.pvp_potion.name=PVP Potion
+
+tile.turret.name=Tesla Turret

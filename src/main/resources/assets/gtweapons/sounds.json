@@ -1,0 +1,51 @@
+{
+    "pistol": {
+        "category":"player",
+        "sounds": [{
+            "name": "pistol",
+            "stream": false
+        }]
+    },
+    "smg": {
+        "category":"player",
+        "sounds": [{
+            "name": "smg",
+            "stream": false
+        }]
+    },
+    "sniper": {
+        "category":"player",
+        "sounds": [{
+            "name": "sniper",
+            "stream": false
+        }]
+    },
+    "blunderbuss": {
+        "category":"player",
+        "sounds": [{
+            "name": "blunderbuss",
+            "stream": false
+        }]
+    },
+    "ar": {
+        "category":"player",
+        "sounds": [{
+            "name": "ar",
+            "stream": false
+        }]
+    },
+    "burst": {
+        "category":"player",
+        "sounds": [{
+            "name": "burst",
+            "stream": false
+        }]
+    },
+    "reload": {
+        "category":"player",
+        "sounds": [{
+            "name": "reload",
+            "stream": false
+        }]
+    }
+}

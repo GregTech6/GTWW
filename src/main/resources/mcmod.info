@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gtweapons",
+  "name": "GregTech Weapon Works",
+  "description": "Adds weapons to GregTech 6 (as well as a lot of unrelated stuff), so you can terrorize your friends and enemies! NOTE: SuperCoder79 is not responsible for any damages to property or personnel, especially to any Energy-Networks you may have.",
+  "version": "0.1.0",
+  "mcversion": "1.7.10",
+  "url": "https://forum.gregtech.overminddl1.com/t/gregtech-weaponworks/133/",
+  "updateUrl": "",
+  "authorList": ["SuperCoder79"],
+  "credits": "SuperCoder79: Coding, GregoriousTechneticies and Qwertygiy: help with coding, Bear989: Providing constructive criticism and helping with ideas",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["gregtech"]
+}
+]

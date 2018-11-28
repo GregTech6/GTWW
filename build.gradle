@@ -1,0 +1,190 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'de.undercouch:gradle-download-task:3.2.0'
+    }
+}
+
+apply plugin: 'de.undercouch.download'
+apply plugin: 'forge'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+def gt6_version = "6.09.04"
+version = "0.1.0"
+group = "supercoder79.gtweapons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "gtweapons"
+
+minecraft {
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "eclipse"
+}
+
+repositories {
+    maven {
+        name = "gt"
+        url = "http://gregtech.overminddl1.com/"
+    }
+    maven {
+        name = "OC repo"
+        url = "http://maven.cil.li/"
+    }
+    maven {
+        name = "ic2"
+        url = "http://maven.ic2.player.to/"
+    }
+    maven {
+        name = "jabba"
+        url = "http://default.mobiusstrip.eu/maven"
+    }
+    maven {
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven/"
+    }
+    maven {
+        name = "Apple"
+        url "http://www.ryanliptak.com/maven/"
+    }
+    ivy {
+        name "BuildCraft"
+        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision](-[classifier]).[ext]"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile "li.cil.oc:OpenComputers:MC1.7.10-1.7.1.1137:dev"
+    compile "mcp.mobius.jabba:Jabba:1.2.2_1.7.10:dev"
+    //compile "mcp.mobius.waila:Waila:1.5.8a_1.7.10:dev" // Already included elsewhere
+    compile "net.industrial-craft:industrialcraft-2:2.2.828-experimental:api" // 624 // 827 // 828
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
+    compile "applecore:AppleCore:1.7.10-1.3.9+241.82d7c:deobf"
+    compile name: "buildcraft", version: "7.2.5" // , classifier: "api"
+    compile group: 'com.gregoriust.gregtech', name: 'gregtech_1.7.10', version: gt6_version, classifier: 'dev'
+    compile "vazkii.botania:Botania:r1.8-250:deobf"
+
+    // you may put jars on which you depend on in ./libs (just don't commit them to git)
+    // or you may define them like so..
+    //compile "some.group:artifact:version:classifier"
+    //compile "some.group:artifact:version"
+
+    // real examples
+    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+    // for more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+}
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+ //Always keep this randomcode updated if enabled.
+ //Do not enable this unless you know what you are doing and want to access every-single-API that GT6 also accesses.
+download {
+    src 'https://gregtech.overminddl1.com/com/gregoriust/gregtech/gregtech_1.7.10/randomcode.jar'
+    dest 'libs/randomcode.jar'
+    onlyIfNewer true
+}
+
+// GT6 needs OpenModsCore through OpenMods through IC2 in randomcode...
+//download {
+//    src 'https://github.com/OpenMods/OpenModsLib/raw/master/etc/open_mods_lib_dummy_jar.jar'
+//    dest 'libs/open_mods_lib_dummy_jar.jar'
+//    onlyIfNewer true
+//}
+
+// Openblocks lack of maven is disturbing...
+download {
+    src 'https://minecraft.curseforge.com/projects/openmodslib/files/2386729/download'
+    dest 'libs/OpenModsLib-1.7.10-0.10-deobf.jar'
+    onlyIfNewer true
+}
+download {
+    src 'https://minecraft.curseforge.com/projects/openblocks/files/2386734/download'
+    dest 'libs/OpenBlocks-1.7.10-1.6-deobf.jar'
+    onlyIfNewer true
+}
+
+task buildInfo {
+    def cmd = "git rev-parse --short HEAD"
+    def proc = cmd.execute()
+    proc.waitFor()
+//    if (proc.exitValue() == 0) {
+//        ext.revision = proc.text.trim()
+//    } else {
+//        ext.revision = "GITBORK"
+//    }
+//
+//    if (System.getenv().BUILD_NUMBER != null) {
+//        ext.buildNum = "${System.getenv().BUILD_NUMBER}"
+//    } else {
+//        def date = new Date().format('yyyyMMddHHmmss')
+//        ext.buildNum = "DEV.${date}.${project.buildInfo.revision}"
+//    }
+}
+
+ext.artifact_version = 'NFG'
+if (System.getenv().ARTIFACT_VERSION == null) {
+    //artifact_version = "${project.buildInfo.buildNum}"
+} else {
+    artifact_version = "${System.getenv().ARTIFACT_VERSION}"
+}
+
+version = "${version}"
+
+jar {
+    exclude('ic2/**')
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    exclude('ic2/**')
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+    exclude('ic2/**')
+//    System.out.println(version)
+}
+
+artifacts {
+    archives deobfJar
+    archives sourcesJar
+}

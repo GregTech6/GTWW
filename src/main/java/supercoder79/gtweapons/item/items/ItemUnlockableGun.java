@@ -3,9 +3,13 @@ package supercoder79.gtweapons.item.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregapi.data.LH;
+import gregapi.oredict.OreDictItemData;
+import gregapi.oredict.OreDictPrefix;
+import gregapi.util.OM;
 import gregapi.util.UT;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,6 +23,7 @@ import supercoder79.gtweapons.api.data.PerkUtils;
 import supercoder79.gtweapons.api.data.UnlockableGunData;
 import supercoder79.gtweapons.entity.entities.EntityBullet;
 import supercoder79.gtweapons.entity.entities.EntityBulletUnlockable;
+import supercoder79.gtweapons.item.ModItems;
 
 import java.util.List;
 
@@ -69,7 +74,7 @@ public class ItemUnlockableGun extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         GunData data = UnlockableGunData.data.get(stack.getItemDamage());
-        if (!world.isRemote) { //check if this is server side
+//        if (!world.isRemote) { //check if this is server side
             if (NBTUtils.NBTGetInteger(stack, "health") <= 0) {//if nbt hasn't been set yet
 //                System.out.println("Test " + data.name);
                 //perk creator
@@ -108,7 +113,7 @@ public class ItemUnlockableGun extends Item {
                                 perks += "ms";
                                 break;
                             case 4:
-                                perks += "bullet-spread";
+                                perks += "bs";
                                 break;
                         }
                     } else if (rarity < 13) {
@@ -202,66 +207,128 @@ public class ItemUnlockableGun extends Item {
                     }
                     perks += ";";
                 }
-//                System.out.println(perks);
 
                 NBTUtils.NBTSetString(stack, "perks", perks);
                 NBTUtils.NBTSetInteger(stack, "health", (int)(data.durability*durabilityExtra));
                 NBTUtils.NBTSetInteger(stack, "maxHealth", (int)(data.durability*durabilityExtra));
             } else {
                 if (world.getWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")) { //if the gun cooldown has been finished
-                    NBTUtils.NBTSetInteger(stack, "health", NBTUtils.NBTGetInteger(stack, "health") - 1);
-                    if (NBTUtils.NBTGetInteger(stack, "health") <= 1) {
-                        player.destroyCurrentEquippedItem();
-                        return stack;
-                    }
-                    if (ConfigHandler.PlaySound) UT.Sounds.send(data.sound, 0.4F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-                    world.spawnEntityInWorld(new EntityBullet(world, player, data, PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"))));
-                    List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
-                    float speedMultiplier = 1f;
-                    for (List<String> list : perks) {
-                        switch (list.get(0)) {
-                            case "c":
-                                switch (list.get(1)) {
-                                    case "fr":
-                                        speedMultiplier-=0.15f;
-                                        break;
+                    if (NBTUtils.NBTGetInteger(stack, "ammo") <= 0) {
+                        for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+                            String ammoType = data.ammo.name;
+                            OreDictItemData oDID = OM.anydata(player.inventory.getStackInSlot(i));
+                            if (oDID != null && oDID.mPrefix == OreDictPrefix.get(ammoType)) {
+                                player.inventory.decrStackSize(i, 1);
+                                NBTUtils.NBTSetInteger(stack, "matID", oDID.mMaterial.mMaterial.mID);
+                                float ammoMultiplier = 1.0f;
+                                List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
+                                for (List<String> list : perks) {
+                                    switch (list.get(0)) {
+                                        case "c":
+                                            switch (list.get(1)) {
+                                                case "ms":
+                                                    ammoMultiplier += 0.20f;
+                                                    break;
+                                            }
+                                            break;
+                                        case "u":
+                                            switch (list.get(1)) {
+                                                case "ms":
+                                                    ammoMultiplier += 0.25f;
+                                                    break;
+                                            }
+                                            break;
+                                        case "r":
+                                            switch (list.get(1)) {
+                                                case "ms":
+                                                    ammoMultiplier += 0.35f;
+                                                    break;
+                                            }
+                                            break;
+                                        case "s":
+                                            switch (list.get(1)) {
+                                                case "ms":
+                                                    ammoMultiplier += 0.50f;
+                                                    break;
+                                            }
+                                            break;
+                                        case "l":
+                                            switch (list.get(1)) {
+                                                case "ms":
+                                                    ammoMultiplier += 0.75f;
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                }
+                                    NBTUtils.NBTSetInteger(stack, "ammo", (int)(data.ammoAmt*ammoMultiplier));
+                                if (ConfigHandler.PlaySound) {
+                                    UT.Sounds.send("gtweapons:reload", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
+                                }
+                                if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.container, 1, 0))) {
+                                    player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.container, 1, 0)));
                                 }
                                 break;
-                            case "u":
-                                switch (list.get(1)) {
-                                    case "fr":
-                                        speedMultiplier-=0.2f;
-                                        break;
-                                }
-                                break;
-                            case "r":
-                                switch (list.get(1)) {
-                                    case "fr":
-                                        speedMultiplier-=0.25f;
-                                        break;
-                                }
-                                break;
-                            case "s":
-                                switch (list.get(1)) {
-                                    case "fr":
-                                        speedMultiplier-=0.3f;
-                                        break;
-                                }
-                                break;
-                            case "l":
-                                switch (list.get(1)) {
-                                    case "fr":
-                                        speedMultiplier-=0.4f;
-                                        break;
-                                }
-                                break;
+                            }
                         }
+                    } else {
+                        NBTUtils.NBTSetInteger(stack, "health", NBTUtils.NBTGetInteger(stack, "health") - 1);
+                        if (NBTUtils.NBTGetInteger(stack, "health") <= 1) {
+                            player.destroyCurrentEquippedItem();
+                            return stack;
+                        }
+                        NBTUtils.NBTSetInteger(stack, "ammo", NBTUtils.NBTGetInteger(stack, "ammo") - 1);
+                        if (!world.isRemote) {
+                            if (ConfigHandler.PlaySound) UT.Sounds.send(data.sound, 0.4F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
+                            world.spawnEntityInWorld(new EntityBullet(world, player, data, PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"))));
+                        }
+                        List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
+                        float speedMultiplier = 1f;
+                        for (List<String> list : perks) {
+                            switch (list.get(0)) {
+                                case "c":
+                                    switch (list.get(1)) {
+                                        case "fr":
+                                            speedMultiplier-=0.15f;
+                                            break;
+                                    }
+                                    break;
+                                case "u":
+                                    switch (list.get(1)) {
+                                        case "fr":
+                                            speedMultiplier-=0.2f;
+                                            break;
+                                    }
+                                    break;
+                                case "r":
+                                    switch (list.get(1)) {
+                                        case "fr":
+                                            speedMultiplier-=0.25f;
+                                            break;
+                                    }
+                                    break;
+                                case "s":
+                                    switch (list.get(1)) {
+                                        case "fr":
+                                            speedMultiplier-=0.3f;
+                                            break;
+                                    }
+                                    break;
+                                case "l":
+                                    switch (list.get(1)) {
+                                        case "fr":
+                                            speedMultiplier-=0.4f;
+                                            break;
+                                    }
+                                    break;
+                            }
+                        }
+                        if (speedMultiplier < 0.2f) speedMultiplier = 0.2f;
+                        NBTUtils.NBTSetLong(stack, "worldDelta", world.getWorldTime() + (int)(data.fireRate*speedMultiplier));
                     }
-                    if (speedMultiplier < 0.2f) speedMultiplier = 0.2f;
-                    NBTUtils.NBTSetLong(stack, "worldDelta", world.getWorldTime() + (int)(data.fireRate*speedMultiplier));
                 }
             }
-        }
+//        }
         return stack;
     }
 
@@ -294,6 +361,7 @@ public class ItemUnlockableGun extends Item {
         String perks = NBTUtils.NBTGetString(stack, "perks");
         if (!perks.isEmpty()) {
             list.add("Durability: " + NBTUtils.NBTGetInteger(stack, "health") + "/" + NBTUtils.NBTGetInteger(stack, "maxHealth"));
+            list.add("Ammo: " + NBTUtils.NBTGetInteger(stack, "ammo"));
             List<List<String>> perkList = PerkUtils.getPerkList(perks);
             for (List<String> innerList : perkList) {
                 String perkToAdd = "";

@@ -40,7 +40,6 @@ public class EntityBullet extends EntityThrowable {
         super(world, player);
         this.data = data;
         this.hurtTime = data.fireRate;
-//        this.material = 7979;
         this.type = -1;
         float damageMultiplier = 1f;
         float spreadMultiplier = 1f;
@@ -106,7 +105,6 @@ public class EntityBullet extends EntityThrowable {
         this.damage = (int)Math.round((data.damage[0] + Math.random() * (data.damage[1] - data.damage[0]))*damageMultiplier);
         double min = 0 - data.bulletSpread; //calculate bullet spread
         double max = data.bulletSpread;
-//        System.out.println(min + " / " + max);
         this.motionX += (min + Math.random() * (max - min))*spreadMultiplier;
         this.motionZ += (min + Math.random() * (max - min))*spreadMultiplier;
         this.motionY += (min + Math.random() * (max - min))*spreadMultiplier;

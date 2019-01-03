@@ -3,6 +3,8 @@ package supercoder79.gtweapons.item.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregapi.data.LH;
+import gregapi.data.MT;
+import gregapi.data.OP;
 import gregapi.oredict.OreDictItemData;
 import gregapi.oredict.OreDictPrefix;
 import gregapi.util.OM;
@@ -18,11 +20,11 @@ import net.minecraft.world.World;
 import supercoder79.gtweapons.GregTechWeaponWorks;
 import supercoder79.gtweapons.api.NBTUtils;
 import supercoder79.gtweapons.api.config.ConfigHandler;
+import supercoder79.gtweapons.api.data.AmmoType;
 import supercoder79.gtweapons.api.data.GunData;
 import supercoder79.gtweapons.api.data.PerkUtils;
 import supercoder79.gtweapons.api.data.UnlockableGunData;
 import supercoder79.gtweapons.entity.entities.EntityBullet;
-import supercoder79.gtweapons.entity.entities.EntityBulletUnlockable;
 import supercoder79.gtweapons.item.ModItems;
 
 import java.util.List;
@@ -88,6 +90,7 @@ public class ItemUnlockableGun extends Item {
                 //Damage
                 //durability
                 //magazine size
+                //bullet spread
 
                 float durabilityExtra = 1f;
                 int perkAmt = (int)Math.floor(Math.random() * 3) + 2;
@@ -212,13 +215,13 @@ public class ItemUnlockableGun extends Item {
                 NBTUtils.NBTSetInteger(stack, "health", (int)(data.durability*durabilityExtra));
                 NBTUtils.NBTSetInteger(stack, "maxHealth", (int)(data.durability*durabilityExtra));
             } else {
-                if (world.getWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")) { //if the gun cooldown has been finished
+                if (world.getTotalWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")) { //if the gun cooldown has been finished
                     if (NBTUtils.NBTGetInteger(stack, "ammo") <= 0) {
                         for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
                             String ammoType = data.ammo.name;
                             OreDictItemData oDID = OM.anydata(player.inventory.getStackInSlot(i));
-                            if (oDID != null && oDID.mPrefix == OreDictPrefix.get(ammoType)) {
-                                player.inventory.decrStackSize(i, 1);
+                            if (oDID != null && oDID.mPrefix == OreDictPrefix.get(ammoType) && player.inventory.getStackInSlot(i).stackSize >= data.useAmt) {
+                                player.inventory.decrStackSize(i, data.useAmt);
                                 NBTUtils.NBTSetInteger(stack, "matID", oDID.mMaterial.mMaterial.mID);
                                 float ammoMultiplier = 1.0f;
                                 List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
@@ -265,8 +268,10 @@ public class ItemUnlockableGun extends Item {
                                 if (ConfigHandler.PlaySound) {
                                     UT.Sounds.send("gtweapons:reload", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
                                 }
-                                if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.container, 1, 0))) {
-                                    player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.container, 1, 0)));
+                                if (data.ammo == AmmoType.LowMagazine || data.ammo == AmmoType.MedMagazine || data.ammo == AmmoType.HighMagazine) {
+                                    if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.container, 1, 0))) {
+                                        player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.container, 1, 0)));
+                                    }
                                 }
                                 break;
                             }
@@ -280,6 +285,7 @@ public class ItemUnlockableGun extends Item {
                         NBTUtils.NBTSetInteger(stack, "ammo", NBTUtils.NBTGetInteger(stack, "ammo") - 1);
                         if (!world.isRemote) {
                             if (ConfigHandler.PlaySound) UT.Sounds.send(data.sound, 0.4F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
+                            player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, data.ammo.meta)));
                             world.spawnEntityInWorld(new EntityBullet(world, player, data, PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"))));
                         }
                         List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
@@ -324,7 +330,7 @@ public class ItemUnlockableGun extends Item {
                             }
                         }
                         if (speedMultiplier < 0.2f) speedMultiplier = 0.2f;
-                        NBTUtils.NBTSetLong(stack, "worldDelta", world.getWorldTime() + (int)(data.fireRate*speedMultiplier));
+                        NBTUtils.NBTSetLong(stack, "worldDelta", world.getTotalWorldTime() + (int)(data.fireRate*speedMultiplier));
                     }
                 }
             }
@@ -478,7 +484,7 @@ public class ItemUnlockableGun extends Item {
                 list.add(perkToAdd);
             }
         } else {
-            list.add("Right click once to generate gun info");
+            list.add("Right click once to generate gun info and perks");
         }
     }
 }

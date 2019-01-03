@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import supercoder79.superapi.math.DistMath;
@@ -21,31 +22,38 @@ import java.util.*;
 //TODO: refactor this to not be shit
 
 public class TileTurret extends TileEntity implements ITileEntityEnergy {
-    long energy = 0;
+    public static int[] minEU = new int[]{16, 64, 256, 1024};
+    public static int[] maxEU = new int[]{64, 256, 512, 2048};
+    public static int[] recEU = new int[]{32, 96, 384, 1536};
+    public static int[] useEU = new int[]{512, 1024, 2048, 4096};
+    public static int[] strEU = new int[]{4096, 8192, 16384, 32768};
+    public static int[] damage = new int[]{12, 16, 24, 40};
+    public int tier = 0;
+    public long energy = 0;
     List<Point3D> points = new ArrayList<Point3D>();
 
-//    public TileTurret(int tier) {
-//
-//    }
+    public TileTurret(int tier) {
+        this.tier = tier;
+    }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-//        NBTUtils.
         this.energy = nbt.getLong("energy");
+        this.tier = nbt.getInteger("tier");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setLong("energy", this.energy);
+        nbt.setInteger("tier", this.tier);
     }
 
 
     @Override
     public void updateEntity() {
-        if (this.worldObj.getWorldTime() % 20 == 0) {
-//            System.out.println(energy);
+        if (this.worldObj.getTotalWorldTime() % 20 == 0) {
             points = new ArrayList<Point3D>();
             Point3D loc = new Point3D(this.xCoord, this.yCoord, this.zCoord);
             List<EntityLivingBase> hostileList = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(this.xCoord - 10, this.yCoord - 10, this.zCoord - 10, this.xCoord + 10, this.yCoord + 10, this.zCoord + 10));
@@ -75,9 +83,9 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
                 for (int i = 0; i < dists.size(); i++) {
                     Double closest = distsD.get(i);
                     if (dists.get(closest).isCreatureType(EnumCreatureType.monster, false)) {
-                        if (energy >= 1024) {
-                            dists.get(closest).attackEntityFrom(DamageSource.causeIndirectMagicDamage(null, null), 10);
-                            energy-=1024;
+                        if (energy >= useEU[tier]) {
+                            dists.get(closest).attackEntityFrom(DamageSource.causeIndirectMagicDamage(null, null), damage[tier]);
+                            energy-=useEU[tier];
                             markDirty();
                         }
                         break;
@@ -117,9 +125,26 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
     @Override
     public long doEnergyInjection(TagData aEnergyType, byte aSide, long aSize, long aAmount, boolean aDoInject) {
         if (aEnergyType == TD.Energy.EU) {
-            if ((energy + aSize) < 8096) {
-//                energyflag = true;
-//                energycache = aAmount;
+            if (aSize > maxEU[tier]) {
+                //blow up this machine
+                float kaboom = 0f;
+                switch (tier) {
+                    case 0:
+                        kaboom = 6f;
+                        break;
+                    case 1:
+                        kaboom = 12f;
+                        break;
+                    case 2:
+                        kaboom = 24f;
+                        break;
+                    case 3:
+                        kaboom = 48f;
+                        break;
+                }
+                this.worldObj.newExplosion(null, this.xCoord, this.yCoord, this.zCoord, kaboom, false, true);
+            }
+            if ((energy + aSize) < strEU[tier]) {
                 energy += aSize;
                 markDirty();
                 return aAmount;
@@ -132,7 +157,7 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
     @Override
     public long getEnergyDemanded(TagData aEnergyType, byte aSide, long aSize) {
         if (aEnergyType == TD.Energy.EU) {
-            return 16;
+            return minEU[tier];
         } else
             return 0;
     }
@@ -140,7 +165,7 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
     @Override
     public long doEnergyExtraction(TagData aEnergyType, byte aSide, long aSize, long aAmount, boolean aDoExtract) {
         if (aEnergyType == TD.Energy.EU) {
-            return 16;
+            return minEU[tier];
         } else
             return 0;
     }
@@ -153,7 +178,7 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
     @Override
     public long getEnergySizeInputMin(TagData aEnergyType, byte aSide) {
         if (aEnergyType == TD.Energy.EU) {
-            return 16;
+            return minEU[tier];
         } else
             return 0;
     }
@@ -166,7 +191,7 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
     @Override
     public long getEnergySizeInputRecommended(TagData aEnergyType, byte aSide) {
         if (aEnergyType == TD.Energy.EU) {
-            return 32;
+            return recEU[tier];
         } else
             return 0;
     }
@@ -179,7 +204,7 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
     @Override
     public long getEnergySizeInputMax(TagData aEnergyType, byte aSide) {
         if (aEnergyType == TD.Energy.EU) {
-            return 64;
+            return maxEU[tier];
         } else
             return 0;
     }

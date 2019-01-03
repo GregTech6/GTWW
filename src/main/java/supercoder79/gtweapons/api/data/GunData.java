@@ -5,6 +5,7 @@ public class GunData {
     public int fireRate;
     public int durability;
     public int ammoAmt;
+    public int useAmt;
     public double bulletSpread;
     public float bulletSpeed;
     public boolean craftable;
@@ -14,7 +15,7 @@ public class GunData {
     public Rarity rarity;
     public AmmoType ammo;
 
-    public GunData( String name, GunType type, Rarity rarity, AmmoType ammo, int ammoAmt, int[] damage, int fireRate, int durability, double bulletSpread, float bulletSpeed, boolean craftable) {
+    public GunData( String name, GunType type, Rarity rarity, AmmoType ammo, int ammoAmt, int useAmt, int[] damage, int fireRate, int durability, double bulletSpread, float bulletSpeed, boolean craftable) {
         this.damage = damage;
         this.fireRate = fireRate;
         this.durability = durability;
@@ -26,6 +27,7 @@ public class GunData {
         this.bulletSpeed = bulletSpeed;
         this.craftable = craftable;
         this.ammoAmt = ammoAmt;
+        this.useAmt = useAmt;
 
         switch (type) {
             case Pistol:

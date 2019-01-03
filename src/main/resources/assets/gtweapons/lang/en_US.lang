@@ -25,6 +25,13 @@ item.grenade_0.name=Grenade
 item.grenade_1.name=Bomb
 item.grenade_2.name=Molotov Cocktail
 
+item.bullet_0.name=Ejected Small Bullet
+item.bullet_1.name=Ejected Medium Bullet
+item.bullet_2.name=Ejected Large Bullet
+
 item.pvp_potion.name=PVP Potion
 
-tile.turret.name=Tesla Turret
+tile.tesla_0.name=LV Tesla Turret
+tile.tesla_1.name=MV Tesla Turret
+tile.tesla_2.name=HV Tesla Turret
+tile.tesla_3.name=EV Tesla Turret

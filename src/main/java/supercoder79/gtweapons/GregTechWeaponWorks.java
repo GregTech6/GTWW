@@ -10,12 +10,12 @@ import gregapi.block.MaterialMachines;
 import gregapi.block.MaterialScoopable;
 import gregapi.block.multitileentity.MultiTileEntityBlock;
 import gregapi.block.multitileentity.MultiTileEntityRegistry;
+import gregapi.code.ICondition;
 import gregapi.code.ModData;
-import gregapi.data.CS;
-import gregapi.data.MD;
-import gregapi.data.MT;
-import gregapi.data.OP;
+import gregapi.data.*;
 import gregapi.oredict.OreDictMaterial;
+import gregapi.recipes.Recipe;
+import gregapi.recipes.handlers.RecipeMapHandlerPrefix;
 import gregapi.tileentity.multiblocks.MultiTileEntityMultiBlockPart;
 import gregapi.util.CR;
 import gregapi.util.UT;
@@ -27,8 +27,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import supercoder79.gtweapons.api.NBTUtils;
 import supercoder79.gtweapons.api.config.ConfigHandler;
+import supercoder79.gtweapons.api.data.GunData;
+import supercoder79.gtweapons.api.data.UnlockableGunData;
 import supercoder79.gtweapons.block.ModBlocks;
 import supercoder79.gtweapons.entity.ModEntities;
 import supercoder79.gtweapons.item.GTMetaItem;
@@ -38,6 +41,10 @@ import supercoder79.gtweapons.loot.ChestLootHandler;
 import supercoder79.gtweapons.tile.ModTiles;
 
 import java.util.Set;
+
+import static gregapi.data.TD.ItemGenerator.G_CONTAINERS;
+import static gregapi.data.TD.Properties.EXPLOSIVE;
+import static gregapi.data.TD.Properties.FLAMMABLE;
 
 /**
  * @author Pranav Karthikeyan - AKA - SuperCoder79
@@ -65,7 +72,10 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 	@SidedProxy(modId = MOD_ID, clientSide = "supercoder79.gtweapons.proxy.ProxyClient", serverSide = "supercoder79.gtweapons.proxy.ProxyServer")
     public static Abstract_Proxy PROXY;
 
-	@Override public String getModID() {return MOD_ID;}
+    public static Fluid MolotovMixture;
+    public static OreDictMaterial matMolotovMixture;
+
+    @Override public String getModID() {return MOD_ID;}
 	@Override public String getModName() {return MOD_NAME;}
 	@Override public String getModNameForLog() {return MOD_LOG_NAME;}
 	@Override public Abstract_Proxy getProxy() {return PROXY;}
@@ -115,12 +125,13 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 
 		// If you want to make yourself a new OreDict Material. Please look up proper IDs. So replace 32766 with a Number inside YOUR own ID Range. (you can look that up in gregapi.oredict.OreDictMaterial.java)
 		//I don't have a good use for this yet
-		final OreDictMaterial matFormicAcid = OreDictMaterial.createMaterial(30800, "FormicAcid", "FormicAcid");
-		matFormicAcid.setTextures(gregapi.render.TextureSet.SET_FLUID);
-		matFormicAcid.setRGBa(99, 3, 15, 0); // Sets the RGBa Color of the Material.
-		matFormicAcid.setOriginalMod(MOD_ID, MOD_NAME);
+		matMolotovMixture = OreDictMaterial.createMaterial(30800, "MolotovMixture", "MolotovMixture");
+		matMolotovMixture.setTextures(gregapi.render.TextureSet.SET_FLUID);
+		matMolotovMixture.setRGBa(19, 175, 89, 0); // Sets the RGBa Color of the Material.
+		matMolotovMixture.setOriginalMod(MOD_ID, MOD_NAME);
+		matMolotovMixture.put(G_CONTAINERS, EXPLOSIVE, FLAMMABLE);
 
-		final Fluid FORMIC_ACID = UT.Fluids.create("Formic Acid", "FormicAcid", matFormicAcid, 1, 1000L, 300L, new Set[] { CS.FluidsGT.ACID });
+		MolotovMixture = UT.Fluids.create("Molotov Mixture", "Molotov Mixture", matMolotovMixture, 1, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
 
 		// You would think this order is not easy to mess up. well you are wrong
 		ModItems.init(); //inits normal items
@@ -166,6 +177,7 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 
 		CR.shaped(new ItemStack(ModItems.gun, 1, 4),CR.DEF, "LCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Steel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Al, 1), 'B', OP.bolt.mat(MT.Steel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1), 'L', OP.stickLong.mat(MT.Steel, 1));
 		CR.shaped(new ItemStack(ModItems.gun, 1, 5),CR.DEF, "CLN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.StainlessSteel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Al, 1), 'B', OP.bolt.mat(MT.StainlessSteel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1), 'L', OP.stickLong.mat(MT.Ti, 1));
+		CR.shaped(new ItemStack(ModItems.gun, 1, 6),CR.DEF, "BSB", "IzI", "BSB", 'B', new ItemStack(ModItems.gun, 1, 3), 'S', OP.plateCurved.mat(MT.StainlessSteel, 1), 'I', OP.stickLong.mat(MT.StainlessSteel, 1));
 
 		CR.shaped(new ItemStack(ModItems.container, 1, 0), CR.DEF, " f ", "PhP",  'P', OP.plate.mat(MT.Steel, 1));
 		CR.shaped(new ItemStack(ModItems.container, 1, 1), CR.DEF,  "PGP",  'P', new ItemStack(Items.paper, 1, 0), 'G', new ItemStack(Items.gunpowder, 1, 0), 'L', OP.plateTiny.mat(MT.Brass, 1));
@@ -175,12 +187,35 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 		CR.shaped(new ItemStack(ModItems.scissors, 1, 2), CR.DEF, "L L", " S ", "RPR", 'L', OP.stick.mat(MT.TungstenSteel, 1), 'S', OP.screw.mat(MT.TungstenSteel, 1), 'R', OP.ring.mat(MT.TungstenSteel, 1), 'P', OP.springSmall.mat(MT.TungstenSteel, 1));
 		CR.shaped(new ItemStack(ModItems.scissors, 1, 3), CR.DEF, "L L", " S ", "R R", 'L', OP.stick.mat(MT.Au, 1), 'S', OP.screw.mat(MT.Au, 1), 'R', OP.ring.mat(MT.Au, 1));
 
+		CR.shaped(new ItemStack(ModItems.grenade, 3, 0), CR.DEF, "hOQ", "fIS", "GGG", 'I', OP.plateCurved.mat(MT.Fe, 1), 'O', OP.ring.mat(MT.Fe, 1), 'S', OP.stick.mat(MT.Fe, 1), 'G', OP.dust.mat(MT.Gunpowder, 1), 'Q', OP.screw.mat(MT.Fe, 1));
+        CR.shaped(new ItemStack(ModItems.grenade, 2, 1), CR.DEF, "hIS", "IGI", " If", 'I', OP.plateCurved.mat(MT.Steel, 1),  'S', new ItemStack(Items.string, 1), 'G', OP.dust.mat(MT.Dynamite, 1));
+
+
+        CR.shapeless(OP.bulletGtSmall.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 0), OP.dustTiny.mat(MT.Gunpowder, 1)});
+		CR.shapeless(OP.bulletGtMedium.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 1), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1)});
+		CR.shapeless(OP.bulletGtLarge.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1)});
+
+		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 4), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'D', OP.plateDouble.mat(MT.Bronze, 1), 'S', OP.screw.mat(MT.Bronze, 1), 'T', new ItemStack(Items.stick, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 5), CR.DEF, "WSW", "hWR", "sQT", 'W', OP.plateCurved.mat(MT.WoodSealed, 1), 'S', OP.plate.mat(MT.Steel, 1), 'R', OP.screw.mat(MT.Steel, 1), 'Q', OP.bolt.mat(MT.Steel, 1), 'T', new ItemStack(Items.stick, 1));
+        CR.shaped(new ItemStack(ModBlocks.teslas.get(0), 1), CR.DEF, "RwS", "BCB", "ShR", 'C', OP.casingMachine.dat(MT.SteelGalvanized), 'B', OP.wireGt16.dat(MT.Cu), 'S', OP.stick.mat(MT.Steel, 1), 'R', OP.ring.mat(MT.Steel, 1));
 	}
 	
 	@Override
 	public void onModPostInit2(cpw.mods.fml.common.event.FMLPostInitializationEvent aEvent) {
 		ChestLootHandler.init(); // loads dungeon loot
-		System.out.println("If you have waited for this long, congratulations! You get a cake!");
+		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtSmall, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineLC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtMedium, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineMC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtLarge, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineHC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+
+		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineLC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtSmall, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineMC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtMedium, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineHC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtLarge, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Mixer.addRecipe0(true, 16, 64, new FluidStack[]{MT.Kerosine.liquid(CS.U10*4, true), MT.Petrol.liquid(CS.U10*4*4, true)}, UT.Fluids.make(MolotovMixture, 2000), CS.ZL_IS);
+        RM.Canner.addRecipe1(true, 64, 128, new ItemStack(Items.glass_bottle, 1), UT.Fluids.make(MolotovMixture, 500), CS.NF, new ItemStack(ModItems.grenade, 1, 2));
+		RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 0), OP.dustTiny.mat(MT.Gunpowder, 1), OP.bulletGtSmall.mat(MT.Empty, 1));
+        RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 1), OP.dustTiny.mat(MT.Gunpowder, 2), OP.bulletGtMedium.mat(MT.Empty, 1));
+        RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 3), OP.bulletGtLarge.mat(MT.Empty, 1));
+        System.out.println("If you have waited for this long, congratulations! You get a cake!");
 	}
 	
 	@Override

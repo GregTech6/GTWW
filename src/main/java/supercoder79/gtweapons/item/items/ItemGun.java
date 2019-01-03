@@ -100,7 +100,7 @@ public class ItemGun extends Item {
 				NBTUtils.NBTSetInteger(stack, "health", maxHealth[stack.getItemDamage()]);
 		}
 
-		if (world.getWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")){
+		if (world.getTotalWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")){
 			if(NBTUtils.NBTGetInteger(stack, "ammo") <= 0) { // check if gun has 0 ammo
 				for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 					String ammoType = "gtweaponsMagazineLC";
@@ -170,26 +170,26 @@ public class ItemGun extends Item {
 //						System.out.println("test");
 						if (stack.getItemDamage() == 0) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:pistol", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.bulletGtSmall.mat(MT.Empty, 1)));
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, 0)));
 						}
 						if (stack.getItemDamage() == 1) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:smg", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.bulletGtSmall.mat(MT.Empty, 1)));
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, 0)));
 						}
 						if (stack.getItemDamage() == 2) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:sniper", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.bulletGtLarge.mat(MT.Empty, 1)));
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, 2)));
 						}
 						if (stack.getItemDamage() == 3) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:blunderbuss", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
 						}
 						if (stack.getItemDamage() == 4) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:ar", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.bulletGtMedium.mat(MT.Empty, 1)));
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, 1)));
 						}
 						if (stack.getItemDamage() == 5) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:burst", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.bulletGtMedium.mat(MT.Empty, 4)));
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, 1)));
 						}
 						if (stack.getItemDamage() == 6) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:blunderbuss", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
@@ -200,7 +200,7 @@ public class ItemGun extends Item {
 					if (!world.isRemote && (NBTUtils.NBTGetInteger(stack, "health") > 1)) {
 						NBTUtils.NBTSetInteger(stack, "ammo", NBTUtils.NBTGetInteger(stack, "ammo") - 1);
 						if (stack.getItem() == ModItems.gun && stack.getItemDamage() < cooldowns.length)
-							NBTUtils.NBTSetLong(stack, "worldDelta", world.getWorldTime() + cooldowns[stack.getItemDamage()]);
+							NBTUtils.NBTSetLong(stack, "worldDelta", world.getTotalWorldTime() + cooldowns[stack.getItemDamage()]);
 						world.spawnParticle("largesmoke", player.posX, player.posY, player.posZ, 0.0D, 0.0D, 0.0D);
 						NBTUtils.NBTSetInteger(stack, "health", NBTUtils.NBTGetInteger(stack, "health") - 1);
 //						world.playSound(player.posX, player.posY, player.posZ, "gtweapons:pistol", 1.0F, 0.6F, false);

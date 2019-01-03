@@ -11,12 +11,14 @@ public class ModItems {
 	public static Item scissors;
 	public static Item pvpPotion;
 	public static Item grenade;
+	public static Item ejectedBullet;
 	public static void init() {
 		GameRegistry.registerItem(gun = new ItemGun("gun"), "gun");
 		GameRegistry.registerItem(container = new ItemContainer("container"), "container");
 		GameRegistry.registerItem(scissors = new ItemScissors("scissors"), "scissors");
 		GameRegistry.registerItem(pvpPotion = new ItemPVPPotion(), "pvp_potion");
 		GameRegistry.registerItem(grenade = new ItemGrenade(), "grenade");
+		GameRegistry.registerItem(ejectedBullet = new ItemEjectedBullet(), "ejected_bullet");
 		GameRegistry.registerItem(unlockableGun = new ItemUnlockableGun("unlockable_gun"), "unlockable_gun");
 	}
 }

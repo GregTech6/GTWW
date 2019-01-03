@@ -20,12 +20,12 @@ public class EntityGrenade extends EntityThrowable {
     protected void onImpact(MovingObjectPosition pos) {
         /*
         * Last two booleans:
-        * 1st one is `isFlamin` places fire down
+        * 1st one is `isFlaming` places fire down
         * 2nd one is `isSmoking` which breaks blocks
         * */
         switch (this.type) {
             case 0:
-                this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, 4F, false, false);
+                this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, 3F, false, false);
                 break;
             case 1:
                 this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, 4F, false, false);

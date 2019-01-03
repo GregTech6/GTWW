@@ -58,10 +58,12 @@ public class ItemGrenade extends Item {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (world.getWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")) {
+        if (world.getTotalWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")) {
             if (!world.isRemote) {
+                player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                player.inventoryContainer.detectAndSendChanges();
                 world.spawnEntityInWorld(new EntityGrenade(world, player, stack.getItemDamage()));
-                NBTUtils.NBTSetLong(stack, "worldDelta", world.getWorldTime() + 20);
+                NBTUtils.NBTSetLong(stack, "worldDelta", world.getTotalWorldTime() + 10);
             }
         }
         return stack;

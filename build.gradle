@@ -23,7 +23,7 @@ apply plugin: 'forge'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-def gt6_version = "6.09.04"
+def gt6_version = "6.09.15"
 version = "0.1.0"
 group = "supercoder79.gtweapons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "gtweapons"

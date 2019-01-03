@@ -21,6 +21,12 @@ import java.util.List;
 import static gregapi.data.TD.Prefix.*;
 
 public class GTMetaItem {
+	public static OreDictPrefix prefixMagazineLC;
+	public static OreDictPrefix prefixMagazineMC;
+	public static OreDictPrefix prefixMagazineHC;
+	public static OreDictPrefix prefixBulletSG;
+
+
 	public static void init(){
 		addDataToNormalItems(); // look at the function name, dummy
 //		final OreDictPrefix prefixBulletHC = OreDictPrefix.createPrefix("gtweaponsBulletHC");
@@ -67,7 +73,7 @@ public class GTMetaItem {
 //		};
 //
 //
-		final OreDictPrefix prefixBulletSG = OreDictPrefix.createPrefix("gtweaponsBulletSG");
+		prefixBulletSG = OreDictPrefix.createPrefix("gtweaponsBulletSG");
 		prefixBulletSG.setCategoryName("Shotgun Shells");
 		prefixBulletSG.setLocalItemName("", " Blunderbuss shot");
 		prefixBulletSG.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
@@ -88,7 +94,7 @@ public class GTMetaItem {
 			}
 		};
 
-		final gregapi.oredict.OreDictPrefix prefixMagazineHC = gregapi.oredict.OreDictPrefix.createPrefix("gtweaponsMagazineHC");
+		prefixMagazineHC = gregapi.oredict.OreDictPrefix.createPrefix("gtweaponsMagazineHC");
 		prefixMagazineHC.setCategoryName("High Caliber Bullet Magazines");
 		prefixMagazineHC.setLocalItemName("High Caliber ", " Bullet Magazine");
 		prefixMagazineHC.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
@@ -111,7 +117,7 @@ public class GTMetaItem {
 			}
 		};
 
-		final gregapi.oredict.OreDictPrefix prefixMagazineMC = gregapi.oredict.OreDictPrefix.createPrefix("gtweaponsMagazineMC");
+		prefixMagazineMC = gregapi.oredict.OreDictPrefix.createPrefix("gtweaponsMagazineMC");
 		prefixMagazineMC.setCategoryName("Medium Caliber Bullet Magazines");
 		prefixMagazineMC.setLocalItemName("Medium Caliber ", " Bullet Magazine");
 		prefixMagazineMC.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
@@ -135,7 +141,7 @@ public class GTMetaItem {
 			}
 		};
 
-		final gregapi.oredict.OreDictPrefix prefixMagazineLC = gregapi.oredict.OreDictPrefix.createPrefix("gtweaponsMagazineLC");
+		prefixMagazineLC = gregapi.oredict.OreDictPrefix.createPrefix("gtweaponsMagazineLC");
 		prefixMagazineLC.setCategoryName("Low Caliber Bullet Magazines");
 		prefixMagazineLC.setLocalItemName("Low Caliber ", " Bullet Magazine");
 		prefixMagazineLC.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
@@ -191,5 +197,8 @@ public class GTMetaItem {
 		OM.data(ST.make(ModItems.container, 1,0), MT.Steel, CS.U*2); // steel magazine casing
 		//empty shotgun shell - 0.5 paper and 0.111 brass
 		OM.data(ST.make(ModItems.container, 1,1), MT.Paper, CS.U/2, OM.stack(MT.Brass, CS.U/9));
+		OM.data(ST.make(ModItems.ejectedBullet, 1, 0), MT.Brass, CS.U9);
+		OM.data(ST.make(ModItems.ejectedBullet, 1, 1), MT.Brass, CS.U9*2);
+		OM.data(ST.make(ModItems.ejectedBullet, 1, 2), MT.Brass, CS.U3);
 	}
 }

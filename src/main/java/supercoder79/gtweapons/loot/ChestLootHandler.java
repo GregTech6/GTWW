@@ -105,6 +105,13 @@ public class ChestLootHandler {
             loot[s].addItem(new ItemStack(ModItems.gun, 1, 0), 1, 1, 3);
             loot[s].addItem(new ItemStack(ModItems.gun, 1, 3), 1, 1, 2);
         }
+        ChestLootHandler[] loot2 = new ChestLootHandler[]{dungeonChest, village, strong1, strong2, desertChest};
+        for (int s = 0; s < loot2.length; s++) {
+            loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 0), 1, 1, 3);
+            loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 1), 1, 1, 2);
+            loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 2), 1, 1, 5);
+            loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 3), 1, 1, 3);
+        }
         dungeonChest.addItem(IL.Tool_Lighter_Invar_Full.get(1), 1, 1, 4);
         dungeonChest.addItem(IL.Tool_Lighter_Platinum_Full.get(1), 1, 1, 1);
         dungeonChest.addItem(IL.Tool_MatchBox_Full.get(1), 1, 4, 10);

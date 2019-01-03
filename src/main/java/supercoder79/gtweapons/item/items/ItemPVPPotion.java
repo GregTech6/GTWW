@@ -23,7 +23,10 @@ public class ItemPVPPotion extends Item {
         player.addPotionEffect(new PotionEffect(21, 72000, 24));
         player.addPotionEffect(new PotionEffect(6, 7, 9));
         player.addPotionEffect(new PotionEffect(23, 72000, 5));
-        stack.stackSize--;
+        if (!world.isRemote) {
+            player.inventory.decrStackSize(player.inventory.currentItem, 1);
+            player.inventoryContainer.detectAndSendChanges();
+        }
         return stack;
     }
     @Override

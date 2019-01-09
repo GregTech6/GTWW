@@ -43,6 +43,15 @@ public class EntityBullet extends EntityThrowable {
         this.type = -1;
         float damageMultiplier = 1f;
         float spreadMultiplier = 1f;
+        float movementMultiplier = 1f;
+
+        if (player.isSprinting() && player.isAirBorne) {
+            movementMultiplier = 1.50f;
+        } else if (player.isSprinting() || player.isAirBorne) {
+            movementMultiplier = 1.25f;
+        }  else if (player.isSneaking()) {
+            movementMultiplier = 0.75f;
+        }
         for (List<String> list : perks) {
             switch (list.get(0)) {
                 case "c":
@@ -105,9 +114,9 @@ public class EntityBullet extends EntityThrowable {
         this.damage = (int)Math.round((data.damage[0] + Math.random() * (data.damage[1] - data.damage[0]))*damageMultiplier);
         double min = 0 - data.bulletSpread; //calculate bullet spread
         double max = data.bulletSpread;
-        this.motionX += (min + Math.random() * (max - min))*spreadMultiplier;
-        this.motionZ += (min + Math.random() * (max - min))*spreadMultiplier;
-        this.motionY += (min + Math.random() * (max - min))*spreadMultiplier;
+        this.motionX += (min + Math.random() * (max - min))*spreadMultiplier*movementMultiplier;
+        this.motionZ += (min + Math.random() * (max - min))*spreadMultiplier*movementMultiplier;
+        this.motionY += (min + Math.random() * (max - min))*spreadMultiplier*movementMultiplier;
     }
 
     public EntityBullet(World world, EntityLivingBase player, float damage, int hurtTime, int material, int type){

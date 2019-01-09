@@ -43,13 +43,14 @@ public class ItemGun extends Item {
 	 * 3 = blunderbuss
 	 * 4 = assault rifle
 	 * 5 = burst rifle
+	 * 6 = bundlebuss
 	 */
 	public static final int WEAPON_NUMBER = 7;
 	public IIcon[] icons = new IIcon[WEAPON_NUMBER];
 	public static int[] cooldowns = {15, 4, 45, 25, 8, 16, 80};
 	public static int[] hurtTime = {20, 4, 40, 0, 8, 0, 0};
 	public static int[] maxHealth = {150, 750, 1500, 500, 1000, 1000, 500};
-	public String[] tooltips = {"A basic gun", "The sub machine gun shoots very fast",
+	public String[] tooltips = {"A basic gun", "The SMG shoots very fast",
 			"The sniper does a lot of damage", "The blunderbuss will end most enemies in your way",
 			"The assault rifle will assault monsters indeed", "The burst rifle shoots 4 bullets at a time", "The bundlebuss is like firing 4 blunderbusses at the same time"};
 
@@ -129,6 +130,8 @@ public class ItemGun extends Item {
 								player.inventory.decrStackSize(i, 4);
 								NBTUtils.NBTSetInteger(stack, "matID", oDID.mMaterial.mMaterial.mID);
 								NBTUtils.NBTSetInteger(stack, "ammo", 1);
+							} else {
+								break;
 							}
 						} else {
 							player.inventory.decrStackSize(i, 1);
@@ -147,14 +150,14 @@ public class ItemGun extends Item {
 						}
 
 						if (stack.getItemDamage() == 3) {
-							if (!player.inventory.addItemStackToInventory(OP.scrapGt.mat(MT.Paper, 2))) {
-								player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.scrapGt.mat(MT.Paper, 2)));
-							}
+//							if (!player.inventory.addItemStackToInventory(OP.scrapGt.mat(MT.Paper, 2))) {
+//								player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.scrapGt.mat(MT.Paper, 2)));
+//							}
 							break;
 						} else if (stack.getItemDamage() == 6) {
-							if (!player.inventory.addItemStackToInventory(OP.scrapGt.mat(MT.Paper, 8))) {
-								player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.scrapGt.mat(MT.Paper, 8)));
-							}
+//							if (!player.inventory.addItemStackToInventory(OP.scrapGt.mat(MT.Paper, 8))) {
+//								player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.scrapGt.mat(MT.Paper, 8)));
+//							}
 							break;
 						} else {
 							if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.container, 1, 0))) {
@@ -182,6 +185,7 @@ public class ItemGun extends Item {
 						}
 						if (stack.getItemDamage() == 3) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:blunderbuss", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.scrapGt.mat(MT.Paper, 2)));
 						}
 						if (stack.getItemDamage() == 4) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:ar", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
@@ -189,10 +193,11 @@ public class ItemGun extends Item {
 						}
 						if (stack.getItemDamage() == 5) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:burst", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
-							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, 1)));
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 4, 1)));
 						}
 						if (stack.getItemDamage() == 6) {
 							if (ConfigHandler.PlaySound) UT.Sounds.send("gtweapons:blunderbuss", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
+							player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, OP.scrapGt.mat(MT.Paper, 8)));
 						}
 					}
 					if (NBTUtils.NBTGetInteger(stack, "ammo") == 0)
@@ -204,6 +209,7 @@ public class ItemGun extends Item {
 						world.spawnParticle("largesmoke", player.posX, player.posY, player.posZ, 0.0D, 0.0D, 0.0D);
 						NBTUtils.NBTSetInteger(stack, "health", NBTUtils.NBTGetInteger(stack, "health") - 1);
 //						world.playSound(player.posX, player.posY, player.posZ, "gtweapons:pistol", 1.0F, 0.6F, false);
+						player.jump();
 						if (stack.getItemDamage() == 3) {
 							for (int i = 0; i < 8; i++) {
 								world.spawnEntityInWorld(new EntityBullet(world, player, MatHelpers.getDamageFromMaterial(NBTUtils.NBTGetInteger(stack, "matID"), stack.getItemDamage()), hurtTime[stack.getItemDamage()], NBTUtils.NBTGetInteger(stack, "matID"), stack.getItemDamage()));

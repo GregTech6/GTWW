@@ -24,7 +24,7 @@ import java.util.List;
 public class ItemScissors extends Item {
     static final int SCISSOR_NUMBER = 4;
     public IIcon[] icons = new IIcon[SCISSOR_NUMBER];
-    static int[] maxHealth = {300, 250, 800, 1};
+    public static int[] maxHealth = {300, 250, 800, 1};
     public ArrayList textures = new ArrayList();
 
     public ItemScissors(String unlocalisedName){

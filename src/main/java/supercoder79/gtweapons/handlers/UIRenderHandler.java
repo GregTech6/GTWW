@@ -7,9 +7,10 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import supercoder79.gtweapons.api.NBTUtils;
 import supercoder79.gtweapons.api.config.ConfigHandler;
 import supercoder79.gtweapons.item.items.ItemGun;
+import supercoder79.gtweapons.item.items.ItemScissors;
 import supercoder79.gtweapons.item.items.ItemUnlockableGun;
 
-public class AmmoRenderHandler {
+public class UIRenderHandler {
 
     @SubscribeEvent
     public void onRendertext(RenderGameOverlayEvent.Text event) {
@@ -62,6 +63,31 @@ public class AmmoRenderHandler {
                     }
                     mc.fontRenderer.drawString("Ammo: " + ammo, 0, 0, 0xFFFFFF, true);
                     mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 9, color, true);
+                }
+                if (player.inventory.getCurrentItem().getItem() instanceof ItemScissors) {
+                    int health = NBTUtils.NBTGetInteger(player.inventory.getCurrentItem(), "health");
+                    int maxHealth = ItemScissors.maxHealth[player.inventory.getCurrentItem().getItemDamage()];
+                    int color = 0xFFFFFF;
+                    float decimal = (float) ((float) (health) / (float) (maxHealth));
+                    int percent = (int) (decimal * 100);
+                    if (health == 0) {
+                    percent = 100;
+                    }
+                    if (percent <= 50) {
+                        color = 0xFFA500;
+                    }
+                    if (percent <= 25) {
+                        color = 0xFF0000;
+                    }
+                    if (percent <= 10) {
+                        color = 0xBB0000;
+                    }
+                    if (player.inventory.getCurrentItem().getItemDamage() == 3) {
+                        mc.fontRenderer.drawString(NBTUtils.NBTGetBoolean(player.inventory.getCurrentItem(), "wound") ? "Wound" : "Unwound", 0, 0, color, true);
+                        mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 9, color, true);
+                    } else {
+                        mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 0, color, true);
+                    }
                 }
             }
         }

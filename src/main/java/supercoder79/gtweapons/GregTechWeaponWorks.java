@@ -30,7 +30,7 @@ import supercoder79.gtweapons.api.config.ConfigHandler;
 import supercoder79.gtweapons.api.materials.GTWWMaterials;
 import supercoder79.gtweapons.block.ModBlocks;
 import supercoder79.gtweapons.entity.ModEntities;
-import supercoder79.gtweapons.handlers.AmmoRenderHandler;
+import supercoder79.gtweapons.handlers.UIRenderHandler;
 import supercoder79.gtweapons.item.GTMetaItem;
 import supercoder79.gtweapons.item.ModItems;
 import supercoder79.gtweapons.loot.ChestLootHandler;
@@ -155,7 +155,7 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 	
 	@Override
 	public void onModInit2(FMLInitializationEvent aEvent) {
-		MinecraftForge.EVENT_BUS.register(new AmmoRenderHandler());
+		MinecraftForge.EVENT_BUS.register(new UIRenderHandler());
 
 		CR.shaped(new ItemStack(ModItems.gun, 1, 0),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Steel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Steel, 1), 'B', OP.bolt.mat(MT.Steel,1), 'I', OP.stick.mat(MT.Steel, 1), 'W', OP.stick.mat(MT.Wood,1));
 		CR.shaped(new ItemStack(ModItems.gun, 1, 1),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.StainlessSteel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.StainlessSteel, 1), 'B', OP.bolt.mat(MT.StainlessSteel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1));

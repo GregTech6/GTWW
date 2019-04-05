@@ -23,8 +23,8 @@ apply plugin: 'forge'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-def gt6_version = "6.09.16"
-version = "0.1.2"
+def gt6_version = "SNAPSHOT"
+version = "0.1.3"
 group = "supercoder79.gtweapons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "gtweapons"
 
@@ -111,6 +111,8 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+    exclude 'thumbs.db'
+    exclude '*.bat'
 }
 
  //Always keep this randomcode updated if enabled.

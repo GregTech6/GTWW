@@ -45,7 +45,7 @@ public class GTWWMaterials {
         fluidMolotovMixture = UT.Fluids.create("Molotov Mixture", "Molotov Mixture", MolotovMixture, 1, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
         fluidLiqueficatedCoal = UT.Fluids.create("Liquefacted Coal", "Liquefacted Coal", LiqueficatedCoal, 1, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
         fluidCoalGas = UT.Fluids.create("Coal Gas", "Coal Gas", CoalGas, 2, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
-        FM.Burn.addRecipe0(true, -32L, 24L, UT.Fluids.make(fluidLiqueficatedCoal, 5L), new FluidStack[]{FL.DistW.make(5L), UT.Fluids.make("carbondioxide", 10L)});
-        FM.Burn.addRecipe0(true, -24L, 16L, UT.Fluids.make(fluidCoalGas, 10L), new FluidStack[]{FL.DistW.make(10L), UT.Fluids.make("carbondioxide", 20L)});
+        FM.Burn.addRecipe0(true, -4L, 6L, UT.Fluids.make(fluidLiqueficatedCoal, 5L), new FluidStack[]{FL.DistW.make(5L), UT.Fluids.make("carbondioxide", 10L)});
+        FM.Burn.addRecipe0(true, -3L, 4L, UT.Fluids.make(fluidCoalGas, 10L), new FluidStack[]{FL.DistW.make(10L), UT.Fluids.make("carbondioxide", 20L)});
     }
 }

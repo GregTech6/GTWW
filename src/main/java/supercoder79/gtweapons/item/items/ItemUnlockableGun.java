@@ -20,13 +20,11 @@ import net.minecraft.world.World;
 import supercoder79.gtweapons.GregTechWeaponWorks;
 import supercoder79.gtweapons.api.NBTUtils;
 import supercoder79.gtweapons.api.config.ConfigHandler;
-import supercoder79.gtweapons.api.data.AmmoType;
-import supercoder79.gtweapons.api.data.GunData;
-import supercoder79.gtweapons.api.data.PerkUtils;
-import supercoder79.gtweapons.api.data.UnlockableGunData;
+import supercoder79.gtweapons.api.data.*;
 import supercoder79.gtweapons.entity.entities.EntityBullet;
 import supercoder79.gtweapons.item.ModItems;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemUnlockableGun extends Item {
@@ -85,12 +83,20 @@ public class ItemUnlockableGun extends Item {
                 //rare: 20%
                 //super rare: 10%
                 //legendary: 5%
+
                 //Perks:
                 //Fire rate
                 //Damage
                 //durability
                 //magazine size
                 //bullet spread
+
+                //Elemental:
+                //Only on Rare, Super Rare, and Legendary weapons
+                //No perk: 40%
+                //Pyro-Strike: 20%
+                //Cryo-Strike: 20%
+                //Electro-Strike: 20%
 
                 float durabilityExtra = 1f;
                 int perkAmt = (int)Math.floor(Math.random() * 3) + 2;
@@ -211,9 +217,24 @@ public class ItemUnlockableGun extends Item {
                     perks += ";";
                 }
 
-                NBTUtils.NBTSetString(stack, "perks", perks);
-                NBTUtils.NBTSetInteger(stack, "health", (int)(data.durability*durabilityExtra));
-                NBTUtils.NBTSetInteger(stack, "maxHealth", (int)(data.durability*durabilityExtra));
+                String elementString = "";
+                if (data.rarity == Rarity.Rare || data.rarity == Rarity.SuperRare || data.rarity == Rarity.Legendary) {
+                    int element = (int)Math.floor(Math.random() * 10);
+                    if (element <= 3) {
+                    } else if (element <= 5) {
+                        elementString+="fire";
+                    } else if (element <= 7) {
+                        elementString+="h2o";
+                    } else if (element <= 9) {
+                        elementString+="pow";
+                    }
+                }
+                System.out.println(perks);
+                if (!world.isRemote) {
+                    NBTUtils.NBTSetString(stack, "perks", perks);
+                    NBTUtils.NBTSetInteger(stack, "health", (int) (data.durability * durabilityExtra));
+                    NBTUtils.NBTSetInteger(stack, "maxHealth", (int) (data.durability * durabilityExtra));
+                }
             } else {
                 if (world.getTotalWorldTime() >= NBTUtils.NBTGetLong(stack,"worldDelta")) { //if the gun cooldown has been finished
                     if (NBTUtils.NBTGetInteger(stack, "ammo") <= 0) {
@@ -284,9 +305,24 @@ public class ItemUnlockableGun extends Item {
                         }
                         NBTUtils.NBTSetInteger(stack, "ammo", NBTUtils.NBTGetInteger(stack, "ammo") - 1);
                         if (!world.isRemote) {
+                            List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
+                            ElementType element = ElementType.None;
+                            for (List<String> list : perks) {
+                                switch (list.get(0)) {
+                                    case "fire":
+                                        element = ElementType.PyroStrike;
+                                        break;
+                                    case "water":
+                                        element = ElementType.CryoStrike;
+                                        break;
+                                    case "electric":
+                                        element = ElementType.ElectroStrike;
+                                        break;
+                                }
+                            }
                             if (ConfigHandler.PlaySound) UT.Sounds.send(data.sound, 0.4F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F), player);
                             player.getEntityWorld().spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(ModItems.ejectedBullet, 1, data.ammo.meta)));
-                            world.spawnEntityInWorld(new EntityBullet(world, player, data, PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"))));
+                            world.spawnEntityInWorld(new EntityBullet(world, player, data, PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks")), element));
                         }
                         List<List<String>> perks = PerkUtils.getPerkList(NBTUtils.NBTGetString(stack, "perks"));
                         float speedMultiplier = 1f;
@@ -478,6 +514,27 @@ public class ItemUnlockableGun extends Item {
                                 break;
                         }
                         if (f3) perkToAdd += " (Legendary)";
+                        break;
+                }
+                perkToAdd += LH.Chat.RESET;
+                list.add(perkToAdd);
+            }
+            String perkToAdd = "";
+            String[] perksElement = perks.split(";");
+            List<String> listElement = Arrays.asList(perks);
+            for (String s : listElement) {
+                switch (s) {
+                    case "fire":
+                        perkToAdd += LH.Chat.ORANGE;
+                        perkToAdd += "Pyro-Strike";
+                        break;
+                    case "h20":
+                        perkToAdd += LH.Chat.CYAN;
+                        perkToAdd += "Cryo-Strike";
+                        break;
+                    case "pow":
+                        perkToAdd += LH.Chat.YELLOW;
+                        perkToAdd += "Electro-Strike";
                         break;
                 }
                 perkToAdd += LH.Chat.RESET;

@@ -60,7 +60,7 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 	/** This is your Mods Log Name */
 	public static final String MOD_LOG_NAME = "GTWW"; 
 	/** This is your Mods Version */
-	public static final String VERSION = "0.1.2";
+	public static final String VERSION = "0.1.3";
 	public static ModData MOD_DATA = new ModData(MOD_ID, MOD_NAME);
 
 	@SidedProxy(modId = MOD_ID, clientSide = "supercoder79.gtweapons.proxy.ProxyClient", serverSide = "supercoder79.gtweapons.proxy.ProxyServer")
@@ -203,9 +203,15 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 		RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 0), OP.dustTiny.mat(MT.Gunpowder, 1), OP.bulletGtSmall.mat(MT.Empty, 1));
         RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 1), OP.dustTiny.mat(MT.Gunpowder, 2), OP.bulletGtMedium.mat(MT.Empty, 1));
         RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 3), OP.bulletGtLarge.mat(MT.Empty, 1));
-        RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.Water.make(CS.U1000*25), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
-        RM.DistillationTower.addRecipeX(true, 64, 256, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidLiqueficatedCoal, 50)}, new FluidStack[]{MT.Fuel.liquid(CS.U1000*30, true), MT.Diesel.liquid(CS.U1000*25, true), MT.Kerosine.liquid(CS.U1000*15, true), UT.Fluids.make(fluidCoalGas, 100)}, OP.dustSmall.mat(MT.Asphalt, 1));
-		RM.DistillationTower.addRecipeX(true, 256, 640, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidCoalGas, 1250)}, new FluidStack[]{FL.DistW.make(2000L), MT.Petrol.liquid(CS.U20*10, true), MT.Butane.gas(CS.U20*20, true), MT.Propane.gas(CS.U20*15, true)});
+
+        RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.Water.make(50), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.Water.make(15), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.DistW.make(50), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.DistW.make(15), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
+
+		RM.DistillationTower.addRecipeX(true, 64, 256, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidLiqueficatedCoal, 50)}, new FluidStack[]{MT.Fuel.liquid(CS.U1000*30, true), MT.Diesel.liquid(CS.U1000*25, true), MT.Kerosine.liquid(CS.U1000*15, true), UT.Fluids.make(fluidCoalGas, 100)}, OP.dustSmall.mat(MT.Asphalt, 1));
+		//God damn it greg
+        RM.DistillationTower.addRecipeX(true, 256, 640, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidCoalGas, 1250L)}, new FluidStack[]{FL.DistW.make(1250L), MT.Petrol.liquid(CS.U20*10, true), MT.Butane.gas(CS.U20*20, true), MT.Propane.gas(CS.U20*15, true)});
 
 		System.out.println("If you have waited for this long, congratulations! You get a cake!");
 	}

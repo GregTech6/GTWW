@@ -17,6 +17,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import supercoder79.gtweapons.api.config.ConfigHandler;
 import supercoder79.gtweapons.api.damage.DamageSourceBullet;
+import supercoder79.gtweapons.api.data.ElementType;
 import supercoder79.gtweapons.api.data.GunData;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class EntityBullet extends EntityThrowable {
     public int material = 0;
     public int type = 0;
     public GunData data;
+    public ElementType element;
 
     public EntityBullet(World world) { // if you for some reason using this as an API, first: don't, second: DO NOT USE THIS CONSTRUCTOR it's for normal minecraft fuckery
         super(world);
@@ -36,11 +38,12 @@ public class EntityBullet extends EntityThrowable {
         super(world, player);
     }
 
-    public EntityBullet(World world, EntityLivingBase player, GunData data, List<List<String>> perks) {
+    public EntityBullet(World world, EntityLivingBase player, GunData data, List<List<String>> perks, ElementType type) {
         super(world, player);
         this.data = data;
         this.hurtTime = data.fireRate;
         this.type = -1;
+        this.element = type;
         float damageMultiplier = 1f;
         float spreadMultiplier = 1f;
         float movementMultiplier = 1f;
@@ -213,10 +216,12 @@ public class EntityBullet extends EntityThrowable {
                     if (this.type != 2) {
                         if (blockHit instanceof  BlockPane || blockHit instanceof BlockStainedGlassPane) {
                             this.addVelocity(-0.05, -0.05, -0.05);
-                            this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, x, y, z, OP.dustSmall.mat(MT.Glass, 1)));
+                            int amt = (int)(Math.floor(Math.random() * 4)) + 1;
+                            this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, x, y, z, OP.scrapGt.mat(MT.Glass, amt)));
                         } else {
                             this.addVelocity(-0.1, -0.1, -0.1); //causes bullet to go all whacko
-                            this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, x, y, z, OP.dustSmall.mat(MT.Glass, 2)));
+                            int amt = (int)(Math.floor(Math.random() * 4)) + 3;
+                            this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, x, y, z, OP.scrapGt.mat(MT.Glass, amt)));
                         }
                     }
                 } else {

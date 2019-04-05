@@ -26,9 +26,6 @@ public class UIRenderHandler {
                     int color = 0xFFFFFF;
                     float decimal = (float) ((float) (health) / (float) (maxHealth));
                     int percent = (int) (decimal * 100);
-                    if (health == 0) {
-                        percent = 100;
-                    }
                     if (percent <= 50) {
                         color = 0xFFA500;
                     }
@@ -38,8 +35,12 @@ public class UIRenderHandler {
                     if (percent <= 10) {
                         color = 0xBB0000;
                     }
-                    mc.fontRenderer.drawString("Ammo: " + ammo, 0, 0, 0xFFFFFF, true);
-                    mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 9, color, true);
+                    if (NBTUtils.NBTGetString(player.inventory.getCurrentItem(), "perks").isEmpty()) {
+                        mc.fontRenderer.drawString("Right click once to generate gun info and perks", 0, 0, 0xFFFFFF, true);
+                    } else {
+                        mc.fontRenderer.drawString("Ammo: " + ammo, 0, 0, 0xFFFFFF, true);
+                        mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 9, color, true);
+                    }
                 }
                 if (player.inventory.getCurrentItem().getItem() instanceof ItemGun) {
                     //String tallness: 9
@@ -82,7 +83,7 @@ public class UIRenderHandler {
                     if (percent <= 10) {
                         color = 0xBB0000;
                     }
-                    if (player.inventory.getCurrentItem().getItemDamage() == 3) {
+                    if (player.inventory.getCurrentItem().getItemDamage() == 2) {
                         mc.fontRenderer.drawString(NBTUtils.NBTGetBoolean(player.inventory.getCurrentItem(), "wound") ? "Wound" : "Unwound", 0, 0, color, true);
                         mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 9, color, true);
                     } else {

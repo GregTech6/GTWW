@@ -82,7 +82,6 @@ public class GTMetaItem {
 		prefixBulletSG.setTextureSetName("gtweaponsBulletSG");
 		prefixBulletSG.setCondition(new And(new Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		prefixBulletSG.mByProducts.add(OM.stack(MT.Paper, OP.ingot.mAmount / 2));
-		prefixBulletSG.mByProducts.add(OM.stack(MT.Brass, OP.ingot.mAmount / 9));
 		prefixBulletSG.mByProducts.add(OM.stack(MT.Gunpowder, OP.ingot.mAmount / 2));
 		final int prefixBulletSGID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsBulletSG");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.bulletSG", prefixBulletSG){

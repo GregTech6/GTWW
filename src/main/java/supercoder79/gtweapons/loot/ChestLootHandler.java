@@ -100,28 +100,68 @@ public class ChestLootHandler {
             dungeonChest.addItem(new ItemStack(ModItems.container, 1, 0), 1, 2, 2);
             dungeonChest.addItem(new ItemStack(ModItems.container, 1, 1), 1, 3, 3);
         }
-        ChestLootHandler[] loot = new ChestLootHandler[]{dungeonChest, village, strong1, strong2, mineshaft, jungleChest, desertChest, bonus};
+        ChestLootHandler[] loot = new ChestLootHandler[]{village, strong1, strong2, mineshaft, jungleChest, desertChest};
         for (int s = 0; s < loot.length; s++) {
-            loot[s].addItem(new ItemStack(ModItems.gun, 1, 0), 1, 1, 3);
+//            loot[s].addItem(new ItemStack(ModItems.gun, 1, 0), 1, 1, 3);
             loot[s].addItem(new ItemStack(ModItems.gun, 1, 3), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 8), 1, 1, 1);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 10), 1, 1, 1);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 11), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 12), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 13), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 14), 1, 1, 1);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 16), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 17), 1, 1, 1);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 18), 1, 1, 3);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 19), 1, 1, 3);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 20), 1, 1, 3);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 21), 1, 1, 3);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 22), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 23), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 24), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 25), 1, 1, 2);
+            loot[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 26), 1, 1, 2);
+
         }
+        dungeonChest.addItem(new ItemStack(ModItems.gun, 1, 3), 1, 1, 4);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 8), 1, 1, 2);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 10), 1, 1, 2);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 11), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 12), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 13), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 14), 1, 1, 2);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 16), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 17), 1, 1, 2);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 18), 1, 1, 4);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 19), 1, 1, 4);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 20), 1, 1, 4);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 21), 1, 1, 4);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 22), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 23), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 24), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 25), 1, 1, 3);
+        dungeonChest.addItem(new ItemStack(ModItems.unlockableGun, 1, 26), 1, 1, 3);
         ChestLootHandler[] loot2 = new ChestLootHandler[]{dungeonChest, village, strong1, strong2, desertChest};
         for (int s = 0; s < loot2.length; s++) {
             loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 0), 1, 1, 3);
             loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 1), 1, 1, 2);
             loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 2), 1, 1, 5);
             loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 3), 1, 1, 3);
+            loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 15), 1, 1, 1);
+            loot2[s].addItem(new ItemStack(ModItems.unlockableGun, 1, 18), 1, 1, 1);
         }
+        strong1.addItem(new ItemStack(ModItems.unlockableGun, 1, 28), 1, 1, 6);
+        strong2.addItem(new ItemStack(ModItems.unlockableGun, 1, 28), 1, 1, 6);
         dungeonChest.addItem(IL.Tool_Lighter_Invar_Full.get(1), 1, 1, 4);
         dungeonChest.addItem(IL.Tool_Lighter_Platinum_Full.get(1), 1, 1, 1);
         dungeonChest.addItem(IL.Tool_MatchBox_Full.get(1), 1, 4, 10);
         //too lazy to write my own code
-        addLoot(ChestGenHooks.DUNGEON_CHEST             ,  10, 4, 8, IL.Bottle_Holy_Water.get(1));
-        addLoot(ChestGenHooks.DUNGEON_CHEST             ,  30, 8,16, IL.Bottle_Purple_Drink.get(1));
-        addLoot(ChestGenHooks.DUNGEON_CHEST             ,  5, 8,16, IL.Bottle_Glue.get(1));
-        addLoot(ChestGenHooks.DUNGEON_CHEST             ,  10, 8,16, IL.Bottle_Lubricant.get(1));
-        addLoot(ChestGenHooks.DUNGEON_CHEST             ,   2, 1, 4, IL.Pill_Cure_All.get(1));
-        addLoot(ChestGenHooks.DUNGEON_CHEST             ,   3, 1, 1, IL.Porcelain_Cup.get(1));
+        addLoot(ChestGenHooks.DUNGEON_CHEST,  10, 4, 8, IL.Bottle_Holy_Water.get(1));
+        addLoot(ChestGenHooks.DUNGEON_CHEST,  30, 8,16, IL.Bottle_Purple_Drink.get(1));
+        addLoot(ChestGenHooks.DUNGEON_CHEST,  5, 8,16, IL.Bottle_Glue.get(1));
+        addLoot(ChestGenHooks.DUNGEON_CHEST,  10, 8,16, IL.Bottle_Lubricant.get(1));
+        addLoot(ChestGenHooks.DUNGEON_CHEST,   2, 1, 4, IL.Pill_Cure_All.get(1));
+        addLoot(ChestGenHooks.DUNGEON_CHEST,   3, 1, 1, IL.Porcelain_Cup.get(1));
 
     }
 

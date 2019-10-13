@@ -9,16 +9,18 @@ import gregtech.blocks.BlockGlassClear;
 import gregtech.blocks.BlockGlassGlow;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import supercoder79.gtweapons.api.config.ConfigHandler;
 import supercoder79.gtweapons.api.damage.DamageSourceBullet;
-import supercoder79.gtweapons.api.data.ElementType;
-import supercoder79.gtweapons.api.data.GunData;
+import supercoder79.gtweapons.api.data.gun.ElementType;
+import supercoder79.gtweapons.api.data.gun.GunData;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class EntityBullet extends EntityThrowable {
     public int material = 0;
     public int type = 0;
     public GunData data;
-    public ElementType element;
+    public ElementType element = ElementType.None;
 
     public EntityBullet(World world) { // if you for some reason using this as an API, first: don't, second: DO NOT USE THIS CONSTRUCTOR it's for normal minecraft fuckery
         super(world);
@@ -120,6 +122,9 @@ public class EntityBullet extends EntityThrowable {
         this.motionX += (min + Math.random() * (max - min))*spreadMultiplier*movementMultiplier;
         this.motionZ += (min + Math.random() * (max - min))*spreadMultiplier*movementMultiplier;
         this.motionY += (min + Math.random() * (max - min))*spreadMultiplier*movementMultiplier;
+        if (element == ElementType.PyroStrike) {
+            this.setFire(79797979); // ;)
+        }
     }
 
     public EntityBullet(World world, EntityLivingBase player, float damage, int hurtTime, int material, int type){
@@ -177,15 +182,59 @@ public class EntityBullet extends EntityThrowable {
                     if (((EntityPlayer) position.entityHit).getDisplayName().toLowerCase().startsWith("supercoder79") && OreDictMaterial.MATERIAL_ARRAY[material] == MT.Au) {
                         position.entityHit.attackEntityFrom(new DamageSourceBullet(this.getThrower()), 79 * 2); // note to self: don't shoot yourself
                     }
+
+                    if (element == ElementType.PyroStrike) {
+                        if (!this.worldObj.isRemote) {
+                            position.entityHit.setFire(2);
+                        }
+                    }
+                    if (element == ElementType.CryoStrike) {
+                        if (!this.worldObj.isRemote) {
+                            ((EntityLivingBase) position.entityHit).addPotionEffect(new PotionEffect(2, 50, 79));
+                        }
+                    }
+                    if (element == ElementType.ElectroStrike) {
+                        if (!this.worldObj.isRemote) {
+                            worldObj.addWeatherEffect(new EntityLightningBolt(worldObj, position.entityHit.posX, position.entityHit.posY, position.entityHit.posZ));
+                        }
+                    }
+                    if (element == ElementType.AeroStrike) {
+                        if (!this.worldObj.isRemote) {
+                            position.entityHit.addVelocity(5*(this.motionX/3), 0.65,5*(this.motionZ/3));
+                        }
+                    }
+                    
                     position.entityHit.attackEntityFrom(new DamageSourceBullet(this.getThrower()), damage);
                 }
             }
             else {
-                position.entityHit.attackEntityFrom(new DamageSourceBullet(this.getThrower()), damage);
-                if (position.entityHit instanceof EntityZombie) {
+                if (position.entityHit instanceof EntityLivingBase) {
+                    if (element == ElementType.PyroStrike) {
+                        if (!this.worldObj.isRemote) {
+                            position.entityHit.setFire(2);
+                        }
+                    }
+                    if (element == ElementType.CryoStrike) {
+                        if (!this.worldObj.isRemote) {
+                            ((EntityLivingBase) position.entityHit).addPotionEffect(new PotionEffect(2, 50, 79));
+                        }
+                    }
+                    if (element == ElementType.ElectroStrike) {
+                        if (!this.worldObj.isRemote) {
+                            worldObj.addWeatherEffect(new EntityLightningBolt(worldObj, position.entityHit.posX, position.entityHit.posY, position.entityHit.posZ));
+                        }
+                    }
+                    if (element == ElementType.AeroStrike) {
+                        if (!this.worldObj.isRemote) {
+                            position.entityHit.addVelocity(3*(this.motionX/3), 0.65,3*(this.motionZ/3));
+                        }
+                    }
+                    position.entityHit.attackEntityFrom(new DamageSourceBullet(this.getThrower()), damage);
+                    if (position.entityHit instanceof EntityZombie) {
 //                    System.out.println(this.getThrower());
-                    ((EntityZombie) position.entityHit).setAttackTarget(this.getThrower());
+                        ((EntityZombie) position.entityHit).setAttackTarget(this.getThrower());
 
+                    }
                 }
             }
             position.entityHit.hurtResistantTime = hurtTime;

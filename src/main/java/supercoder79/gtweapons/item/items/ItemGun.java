@@ -3,6 +3,7 @@ package supercoder79.gtweapons.item.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregapi.data.IL;
+import gregapi.data.LH;
 import gregapi.data.MT;
 import gregapi.data.OP;
 import gregapi.oredict.OreDictItemData;
@@ -234,6 +235,9 @@ public class ItemGun extends Item {
 	}
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean f3) { //idk what i'm doing anymore
+		if (stack.getItemDamage() != 3 && stack.getItemDamage() != 6) {
+			list.add(LH.Chat.BLINKING_RED + "This gun has been deprecated!");
+		}
 		list.add(tooltips[stack.getItemDamage()]);
 		if (!f3){
 			list.add("Use F3+H for more info");

@@ -40,6 +40,23 @@ public class UIRenderHandler {
                     } else {
                         mc.fontRenderer.drawString("Ammo: " + ammo, 0, 0, 0xFFFFFF, true);
                         mc.fontRenderer.drawString("Durability: " + percent + "%", 0, 9, color, true);
+                        switch (NBTUtils.NBTGetString(player.inventory.getCurrentItem(), "element")) {
+                            case "fire":
+                                mc.fontRenderer.drawString("Pyro-Strike", 0, 18, 0xFFA500, true);
+                                break;
+                            case "h2o":
+                                mc.fontRenderer.drawString("Cryo-Strike", 0, 18, 0x00FFFF, true);
+                                break;
+                            case "pow":
+                                mc.fontRenderer.drawString("Electro-Strike", 0, 18, 0xFFFF00, true);
+                                break;
+                            case "air":
+                                mc.fontRenderer.drawString("Aero-Strike", 0, 18, 0xDCDCDC, true);
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
                 }
                 if (player.inventory.getCurrentItem().getItem() instanceof ItemGun) {

@@ -1,4 +1,4 @@
-package supercoder79.gtweapons.api.data;
+package supercoder79.gtweapons.api.data.gun;
 
 public enum AmmoType {
     //Guns that use magazines

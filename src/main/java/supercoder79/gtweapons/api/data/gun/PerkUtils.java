@@ -1,4 +1,4 @@
-package supercoder79.gtweapons.api.data;
+package supercoder79.gtweapons.api.data.gun;
 
 import java.util.ArrayList;
 import java.util.Arrays;

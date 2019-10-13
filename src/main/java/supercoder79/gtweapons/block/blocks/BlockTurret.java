@@ -31,8 +31,6 @@ public class BlockTurret extends Block implements ITileEntityProvider {
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
-//        System.out.println(tier);
-        //fuck this shit i'm out
         return new TileTurret(tier);
     }
 }

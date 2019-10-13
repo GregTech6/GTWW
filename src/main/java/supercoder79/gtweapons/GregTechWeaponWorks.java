@@ -19,6 +19,7 @@ import gregapi.tileentity.multiblocks.MultiTileEntityMultiBlockPart;
 import gregapi.util.CR;
 import gregapi.util.UT;
 import gregtech.tileentity.multiblocks.MultiTileEntityTank3x3x3Metal;
+import gregtech.tileentity.multiblocks.MultiTileEntityTank5x5x5Metal;
 import gregtech.tileentity.tanks.MultiTileEntityBarrelMetal;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -60,7 +61,7 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 	/** This is your Mods Log Name */
 	public static final String MOD_LOG_NAME = "GTWW"; 
 	/** This is your Mods Version */
-	public static final String VERSION = "0.1.3";
+	public static final String VERSION = "0.2.0";
 	public static ModData MOD_DATA = new ModData(MOD_ID, MOD_NAME);
 
 	@SidedProxy(modId = MOD_ID, clientSide = "supercoder79.gtweapons.proxy.ProxyClient", serverSide = "supercoder79.gtweapons.proxy.ProxyServer")
@@ -103,10 +104,15 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 
 	private static void multiblocks(MultiTileEntityRegistry aRegistry, MultiTileEntityBlock aMetal, MultiTileEntityBlock aMetalChips, MultiTileEntityBlock aMetalWires, MultiTileEntityBlock aMachine, MultiTileEntityBlock aWooden, MultiTileEntityBlock aBush, MultiTileEntityBlock aStone, MultiTileEntityBlock aWool, MultiTileEntityBlock aTNT, MultiTileEntityBlock aHive, MultiTileEntityBlock aUtilMetal, MultiTileEntityBlock aUtilStone, MultiTileEntityBlock aUtilWood, MultiTileEntityBlock aUtilWool, OreDictMaterial aMat, Class aClass) {
 		aMat = MT.SteelGalvanized;
-		aRegistry.add("Galvanized Steel Wall", "Multiblock Machines", 0, 17101, aClass, aMat.mToolQuality, 64, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "metalwall", "gt.designs", Integer.valueOf(3) }), new Object[] { "wPP", "hPP", Character.valueOf('P'), OP.plate.dat(aMat) });
+		//stainless steel id:18002
+		aRegistry.add("100% E-Net Proof Galvanized Steel Wall", "Multiblock Machines", 0, 17101, aClass, aMat.mToolQuality, 64, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "metalwall", "gt.designs", Integer.valueOf(3) }), new Object[] { "P", Character.valueOf('P'), MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18008) });
 		aRegistry.add("Small Galvanized Steel Tank Main Valve", "Multiblock Machines", 1, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(1296000), "gt.design", Integer.valueOf(0), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { " R ", "hMs", " R ", Character.valueOf('M'), aRegistry.getItem(0), Character.valueOf('R'), OP.ring.dat(aMat) });
-		aRegistry.add("Dense Galvanized Steel Wall", "Multiblock Machines", 2, 17101, aClass, aMat.mToolQuality, 64, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "metalwall", "gt.designs", Integer.valueOf(3) }), new Object[] { "wPP", "hPP", Character.valueOf('P'), OP.plateDense.dat(aMat) });
+		aRegistry.add("100% E-Net Proof Dense Galvanized Steel Wall", "Multiblock Machines", 2, 17101, aClass, aMat.mToolQuality, 64, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "metalwall", "gt.designs", Integer.valueOf(3) }), new Object[] { "P", Character.valueOf('P'), MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18028) });
 		aRegistry.add("Small Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 3, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(5184000), "gt.design", Integer.valueOf(2), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { " R ", "hMs", " R ", Character.valueOf('M'), aRegistry.getItem(2), Character.valueOf('R'), OP.ring.dat(aMat) });
+		//5x5
+		aRegistry.add("Large Galvanized Steel Tank Main Valve", "Multiblock Machines", 5, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(6000000), "gt.design", Integer.valueOf(0), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { "PPP", "hMs", "PPP", 'M', aRegistry.getItem(0), 'P', OP.plateDense.dat(aMat) });
+		aRegistry.add("Large Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 6, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(24000000), "gt.design", Integer.valueOf(2), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { "PPP", "hMs", "PPP", 'M', aRegistry.getItem(2), 'P', OP.plateDense.dat(aMat) });
+
 		//not a multiblock, but whatever :P
 		aRegistry.add("Galvanized Steel Drum", "Fluid Containers", 4, 32719, MultiTileEntityBarrelMetal.class, 0, 16, aUtilMetal, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(1.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.tankcap", Integer.valueOf(48000), "gt.gasproof", Boolean.valueOf(true) }), new Object[] { " h ", "PSP", "PSP", Character.valueOf('P'), OP.plateCurved.dat(aMat), Character.valueOf('S'), OP.stickLong.dat(aMat) });
 	}
@@ -157,13 +163,13 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 	public void onModInit2(FMLInitializationEvent aEvent) {
 		MinecraftForge.EVENT_BUS.register(new UIRenderHandler());
 
-		CR.shaped(new ItemStack(ModItems.gun, 1, 0),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Steel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Steel, 1), 'B', OP.bolt.mat(MT.Steel,1), 'I', OP.stick.mat(MT.Steel, 1), 'W', OP.stick.mat(MT.Wood,1));
-		CR.shaped(new ItemStack(ModItems.gun, 1, 1),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.StainlessSteel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.StainlessSteel, 1), 'B', OP.bolt.mat(MT.StainlessSteel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1));
-		CR.shaped(new ItemStack(ModItems.gun, 1, 2),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.TungstenSteel,1), 'N', OP.plateDouble.mat(MT.Ti, 1), 'S', OP.screw.mat(MT.Ti, 1), 'B', OP.bolt.mat(MT.Ti,1), 'I', OP.stick.mat(MT.Ti, 1), 'W', OP.stick.mat(MT.Ti,1));
+		//CR.shaped(new ItemStack(ModItems.gun, 1, 0),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Steel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Steel, 1), 'B', OP.bolt.mat(MT.Steel,1), 'I', OP.stick.mat(MT.Steel, 1), 'W', OP.stick.mat(MT.Wood,1));
+		//CR.shaped(new ItemStack(ModItems.gun, 1, 1),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.StainlessSteel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.StainlessSteel, 1), 'B', OP.bolt.mat(MT.StainlessSteel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1));
+		//CR.shaped(new ItemStack(ModItems.gun, 1, 2),CR.DEF, "CCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.TungstenSteel,1), 'N', OP.plateDouble.mat(MT.Ti, 1), 'S', OP.screw.mat(MT.Ti, 1), 'B', OP.bolt.mat(MT.Ti,1), 'I', OP.stick.mat(MT.Ti, 1), 'W', OP.stick.mat(MT.Ti,1));
 
 		CR.shaped(new ItemStack(ModItems.gun, 1, 3),CR.DEF, "CSN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Bronze,1), 'N', OP.bolt.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Bronze, 1), 'B', OP.bolt.mat(MT.Bronze,1), 'I', OP.stick.mat(MT.Bronze, 1), 'W', OP.stick.mat(MT.Wood,1));
 
-		CR.shaped(new ItemStack(ModItems.gun, 1, 4),CR.DEF, "LCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Steel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Al, 1), 'B', OP.bolt.mat(MT.Steel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1), 'L', OP.stickLong.mat(MT.Steel, 1));
+		//CR.shaped(new ItemStack(ModItems.gun, 1, 4),CR.DEF, "LCN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.Steel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Al, 1), 'B', OP.bolt.mat(MT.Steel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1), 'L', OP.stickLong.mat(MT.Steel, 1));
 		CR.shaped(new ItemStack(ModItems.gun, 1, 5),CR.DEF, "CLN", "SBI", "dhW", 'C', OP.plateCurved.mat(MT.StainlessSteel,1), 'N', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Al, 1), 'B', OP.bolt.mat(MT.StainlessSteel,1), 'I', OP.stick.mat(MT.StainlessSteel, 1), 'W', OP.stick.mat(MT.StainlessSteel,1), 'L', OP.stickLong.mat(MT.Ti, 1));
 		CR.shaped(new ItemStack(ModItems.gun, 1, 6),CR.DEF, "BSB", "IzI", "BSB", 'B', new ItemStack(ModItems.gun, 1, 3), 'S', OP.plateCurved.mat(MT.StainlessSteel, 1), 'I', OP.stickLong.mat(MT.StainlessSteel, 1));
 
@@ -178,14 +184,24 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 		CR.shaped(new ItemStack(ModItems.grenade, 3, 0), CR.DEF, "hOQ", "fIS", "GGG", 'I', OP.plateCurved.mat(MT.Fe, 1), 'O', OP.ring.mat(MT.Fe, 1), 'S', OP.stick.mat(MT.Fe, 1), 'G', OP.dust.mat(MT.Gunpowder, 1), 'Q', OP.screw.mat(MT.Fe, 1));
         CR.shaped(new ItemStack(ModItems.grenade, 2, 1), CR.DEF, "hIS", "IGI", " If", 'I', OP.plateCurved.mat(MT.Steel, 1),  'S', new ItemStack(Items.string, 1), 'G', OP.dust.mat(MT.Dynamite, 1));
 
-
         CR.shapeless(OP.bulletGtSmall.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 0), OP.dustTiny.mat(MT.Gunpowder, 1)});
 		CR.shapeless(OP.bulletGtMedium.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 1), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1)});
 		CR.shapeless(OP.bulletGtLarge.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1)});
 
 		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 4), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'D', OP.plateDouble.mat(MT.Bronze, 1), 'S', OP.screw.mat(MT.Bronze, 1), 'T', new ItemStack(Items.stick, 1));
         CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 5), CR.DEF, "WSW", "hWR", "sQT", 'W', OP.plate.mat(MT.WoodSealed, 1), 'S', OP.plate.mat(MT.Steel, 1), 'R', OP.screw.mat(MT.Steel, 1), 'Q', OP.bolt.mat(MT.Steel, 1), 'T', new ItemStack(Items.stick, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 29), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Steel, 1), 'D', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Fe, 1), 'T', OP.stick.mat(MT.Bronze, 1));
+		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 29), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Steel, 1), 'D', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.WroughtIron, 1), 'T', OP.stick.mat(MT.Bronze, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 27), CR.DEF, "PPS", "TTH", "hfH", 'P', OP.plateCurved.mat(MT.Steel, 1), 'S', OP.plate.mat(MT.Steel, 1), 'T', OP.stick.mat(MT.Fe, 1), 'H', OP.stick.mat(MT.Bronze, 1));
+		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 27), CR.DEF, "PPS", "TTH", "hfH", 'P', OP.plateCurved.mat(MT.Steel, 1), 'S', OP.plate.mat(MT.Steel, 1), 'T', OP.stick.mat(MT.WroughtIron, 1), 'H', OP.stick.mat(MT.Bronze, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 9), CR.DEF, "PPL", "TTS", "Shf", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'L', OP.plateDouble.mat(MT.Bronze, 1), 'T', OP.stick.mat(MT.Bronze, 1), 'S', new ItemStack(Items.stick, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 6), CR.DEF, "PIL", "TLT", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'I', OP.stick.mat(MT.Fe, 1), 'L', OP.plate.mat(MT.WoodSealed, 1), 'T', OP.stick.mat(MT.Bronze, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 6), CR.DEF, "PIL", "TLT", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'I', OP.stick.mat(MT.WroughtIron, 1), 'L', OP.plate.mat(MT.WoodSealed, 1), 'T', OP.stick.mat(MT.Bronze, 1));
+
         CR.shaped(new ItemStack(ModBlocks.teslas.get(0), 1), CR.DEF, "RwS", "BCB", "ShR", 'C', OP.casingMachine.dat(MT.SteelGalvanized), 'B', OP.wireGt16.dat(MT.Cu), 'S', OP.stick.mat(MT.Steel, 1), 'R', OP.ring.mat(MT.Steel, 1));
+
+        CR.shapeless(MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18008), new Object[]{MultiTileEntityRegistry.getRegistry("gtww.multitiles").getItem(0)});
+		CR.shapeless(MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18028), new Object[]{MultiTileEntityRegistry.getRegistry("gtww.multitiles").getItem(2)});
 	}
 	
 	@Override
@@ -204,14 +220,16 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
         RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 1), OP.dustTiny.mat(MT.Gunpowder, 2), OP.bulletGtMedium.mat(MT.Empty, 1));
         RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 3), OP.bulletGtLarge.mat(MT.Empty, 1));
 
-        RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.Water.make(50), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
-		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.Water.make(15), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
-		RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.DistW.make(50), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
-		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.DistW.make(15), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
+        RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.Water.make(25), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.Water.make(10), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.DistW.make(25), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.DistW.make(10), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
 
-		RM.DistillationTower.addRecipeX(true, 64, 256, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidLiqueficatedCoal, 50)}, new FluidStack[]{MT.Fuel.liquid(CS.U1000*30, true), MT.Diesel.liquid(CS.U1000*25, true), MT.Kerosine.liquid(CS.U1000*15, true), UT.Fluids.make(fluidCoalGas, 100)}, OP.dustSmall.mat(MT.Asphalt, 1));
+		RM.DistillationTower.addRecipeX(true, 64, 32, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidLiqueficatedCoal, 50)}, new FluidStack[]{MT.Fuel.liquid(CS.U1000*30, true), MT.Diesel.liquid(CS.U1000*30, true), MT.Kerosine.liquid(CS.U1000*20, true), UT.Fluids.make(fluidCoalGas, 100)}, OP.dustSmall.mat(MT.Asphalt, 1));
 		//God damn it greg
-        RM.DistillationTower.addRecipeX(true, 256, 640, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidCoalGas, 1250L)}, new FluidStack[]{FL.DistW.make(1250L), MT.Petrol.liquid(CS.U20*10, true), MT.Butane.gas(CS.U20*20, true), MT.Propane.gas(CS.U20*15, true)});
+        //RM.DistillationTower.addRecipeX(true, 256, 640, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidCoalGas, 1250L)}, new FluidStack[]{FL.DistW.make(1250L), MT.Petrol.liquid(CS.U20*10, true), MT.Butane.gas(CS.U20*20, true), MT.Propane.gas(CS.U20*15, true)});
+
+        //Thorium shit
 
 		System.out.println("If you have waited for this long, congratulations! You get a cake!");
 	}

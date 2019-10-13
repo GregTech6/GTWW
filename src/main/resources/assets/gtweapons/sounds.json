@@ -47,5 +47,33 @@
             "name": "reload",
             "stream": false
         }]
+    },
+    "heavypistol": {
+        "category":"player",
+        "sounds": [{
+            "name": "heavypistol",
+            "stream": false
+        }]
+    },
+    "speedshot": {
+        "category":"player",
+        "sounds": [{
+            "name": "speedshot",
+            "stream": false
+        }]
+    },
+    "heavyar": {
+        "category":"player",
+        "sounds": [{
+            "name": "heavyar",
+            "stream": false
+        }]
+    },
+    "silenced": {
+        "category":"player",
+        "sounds": [{
+            "name": "silenced",
+            "stream": false
+        }]
     }
 }

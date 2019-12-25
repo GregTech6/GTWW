@@ -42,7 +42,7 @@ import static supercoder79.gtweapons.api.materials.GTWWMaterials.fluidLiqueficat
 import static supercoder79.gtweapons.api.materials.GTWWMaterials.fluidMolotovMixture;
 
 /**
- * @author Pranav Karthikeyan - AKA - SuperCoder79
+ * @author SuperCoder79
  *
  * Please don't decompile this. Wait, the decompiler removes all comments, shit
  *

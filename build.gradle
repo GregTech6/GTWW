@@ -152,7 +152,7 @@ dependencies {
 }
 
 task buildInfo {
-        def matcher = "v[0-9][0-9]*\\.[0-9][0-9]*\\.[0-9][0-9]*"
+        def matcher = "v[0-9]*\\.[0-9]*\\.[0-9]*"
         def cmdTag = "git describe --match '${matcher}' --abbrev=0 --exact-match --dirty"
         def procTag = cmdTag.execute()
         procTag.waitFor()

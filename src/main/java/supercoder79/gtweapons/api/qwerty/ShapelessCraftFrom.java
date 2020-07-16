@@ -1,9 +1,11 @@
 package supercoder79.gtweapons.api.qwerty;
 
 import gregapi.code.ICondition;
+import gregapi.code.ITagDataContainer;
 import gregapi.data.CS;
 import gregapi.data.MT;
 import gregapi.data.OP;
+import gregapi.oredict.OreDictMaterial;
 import gregapi.oredict.OreDictPrefix;
 import gregapi.oredict.event.IOreDictListenerEvent;
 import gregapi.util.CR;
@@ -13,7 +15,7 @@ import gregapi.util.ST;
 public class ShapelessCraftFrom
         implements IOreDictListenerEvent
 {
-    private final ICondition mCondition;
+    private final ICondition<OreDictMaterial> mCondition;
     private final String[][] mRecipes;
     private final String mCategoryName;
     private final OreDictPrefix mSpecialPrefix1;
@@ -23,7 +25,7 @@ public class ShapelessCraftFrom
     private final Object mSpecialObject2;
     private final long mOutputAmount;
 
-    public ShapelessCraftFrom(long aOutputAmount, String aCategoryName, String[][] aRecipes, OreDictPrefix aSpecialPrefix1, OreDictPrefix aSpecialPrefix2, OreDictPrefix aSpecialPrefix3, Object aSpecialObject1, Object aSpecialObject2, ICondition aCondition)
+    public ShapelessCraftFrom(long aOutputAmount, String aCategoryName, String[][] aRecipes, OreDictPrefix aSpecialPrefix1, OreDictPrefix aSpecialPrefix2, OreDictPrefix aSpecialPrefix3, Object aSpecialObject1, Object aSpecialObject2, ICondition<OreDictMaterial> aCondition)
     {
         this.mSpecialPrefix1 = aSpecialPrefix1;
         this.mSpecialPrefix2 = aSpecialPrefix2;

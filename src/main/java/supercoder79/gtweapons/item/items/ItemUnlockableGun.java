@@ -49,7 +49,8 @@ public class ItemUnlockableGun extends Item {
         }
     }
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, List lst) {
+        @SuppressWarnings("unchecked") List<ItemStack> list = (List<ItemStack>)lst;
         for (int i = 0; i < GUN_NUMBER; i ++) {
             list.add(new ItemStack(item, 1, i));
         }
@@ -98,121 +99,121 @@ public class ItemUnlockableGun extends Item {
 
                 float durabilityExtra = 1f;
                 int perkAmt = (int)Math.floor(Math.random() * 3) + 2;
-                String perks = "";
+                StringBuilder perks = new StringBuilder();
                 for (int i = 0; i < perkAmt; i++) {
                     int rarity = (int)Math.floor(Math.random() * 20);
                     if (rarity < 7) {
                         //common
-                        perks += data.craftable ? "c_" : "u_";
+                        perks.append(data.craftable ? "c_" : "u_");
                         int perk = (int)Math.floor(Math.random() * 5);
                         switch (perk) {
                             case 0:
-                                perks += "fr";
+                                perks.append("fr");
                                 break;
                             case 1:
-                                perks += "dm";
+                                perks.append("dm");
                                 break;
                             case 2:
-                                perks += "db";
+                                perks.append("db");
                                 durabilityExtra += 0.15f;
                                 break;
                             case 3:
-                                perks += "ms";
+                                perks.append("ms");
                                 break;
                             case 4:
-                                perks += "bs";
+                                perks.append("bs");
                                 break;
                         }
                     } else if (rarity < 13) {
                         //uncommon
-                        perks += data.craftable ? "u_" : "r_";
+                        perks.append(data.craftable ? "u_" : "r_");
                         int perk = (int)Math.floor(Math.random() * 5);
                         switch (perk) {
                             case 0:
-                                perks += "fr";
+                                perks.append("fr");
                                 break;
                             case 1:
-                                perks += "dm";
+                                perks.append("dm");
                                 break;
                             case 2:
-                                perks += "db";
+                                perks.append("db");
                                 durabilityExtra += 0.25f;
                                 break;
                             case 3:
-                                perks += "ms";
+                                perks.append("ms");
                                 break;
                             case 4:
-                                perks += "bs";
+                                perks.append("bs");
                                 break;
                         }
                     } else if (rarity < 17) {
                         //rare
-                        perks += data.craftable ? "r_" : "s_";
+                        perks.append(data.craftable ? "r_" : "s_");
                         int perk = (int)Math.floor(Math.random() * 5);
                         switch (perk) {
                             case 0:
-                                perks += "fr";
+                                perks.append("fr");
                                 break;
                             case 1:
-                                perks += "dm";
+                                perks.append("dm");
                                 break;
                             case 2:
-                                perks += "db";
+                                perks.append("db");
                                 durabilityExtra+= 0.25f;
                                 break;
                             case 3:
-                                perks += "ms";
+                                perks.append("ms");
                                 break;
                             case 4:
-                                perks += "bs";
+                                perks.append("bs");
                                 break;
                         }
                     } else if (rarity < 19) {
                         //super rare
-                        perks += data.craftable ? "s_" : "l_";
+                        perks.append(data.craftable ? "s_" : "l_");
                         int perk = (int)Math.floor(Math.random() * 5);
                         switch (perk) {
                             case 0:
-                                perks += "fr";
+                                perks.append("fr");
                                 break;
                             case 1:
-                                perks += "dm";
+                                perks.append("dm");
                                 break;
                             case 2:
-                                perks += "db";
+                                perks.append("db");
                                 durabilityExtra+= 0.30f;
                                 break;
                             case 3:
-                                perks += "ms";
+                                perks.append("ms");
                                 break;
                             case 4:
-                                perks += "bs";
+                                perks.append("bs");
                                 break;
                         }
                     } else if (rarity < 20) {
                         //legendary
-                        perks += "l_";
+                        perks.append("l_");
                         int perk = (int)Math.floor(Math.random() * 5);
                         switch (perk) {
                             case 0:
-                                perks += "fr";
+                                perks.append("fr");
                                 break;
                             case 1:
-                                perks += "dm";
+                                perks.append("dm");
                                 break;
                             case 2:
-                                perks += "db";
+                                perks.append("db");
                                 durabilityExtra+= 0.50f;
                                 break;
                             case 3:
-                                perks += "ms";
+                                perks.append("ms");
                                 break;
                             case 4:
-                                perks += "bs";
+                                perks.append("bs");
                                 break;
                         }
                     }
-                    perks += ";";
+                    perks.append(";");
                 }
 
                 String elementString = "";
@@ -230,7 +231,7 @@ public class ItemUnlockableGun extends Item {
                     }
                 }
                 if (!world.isRemote) {
-                    NBTUtils.NBTSetString(stack, "perks", perks);
+                    NBTUtils.NBTSetString(stack, "perks", perks.toString());
                     NBTUtils.NBTSetString(stack, "element", elementString);
                     NBTUtils.NBTSetInteger(stack, "health", (int) (data.durability * durabilityExtra));
                     NBTUtils.NBTSetInteger(stack, "maxHealth", (int) (data.durability * durabilityExtra));
@@ -377,7 +378,8 @@ public class ItemUnlockableGun extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean f3) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List lst, boolean f3) {
+        @SuppressWarnings("unchecked") List<String> list = (List<String>)lst;
         GunData data = UnlockableGunData.data.get(stack.getItemDamage());
         String name = data.rarity.color;
         switch (data.type) {

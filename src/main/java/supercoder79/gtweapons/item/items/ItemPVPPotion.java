@@ -30,7 +30,8 @@ public class ItemPVPPotion extends Item {
         return stack;
     }
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean f3) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List lst, boolean f3) {
+        @SuppressWarnings("unchecked") List<String> list = (List<String>)lst;
         list.add("Creative only item!");
         list.add("Changes max health to 50 hearts instead of 10.");
         list.add("Makes you invulnerable for 10 seconds after drinking.");

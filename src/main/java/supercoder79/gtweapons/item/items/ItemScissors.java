@@ -46,7 +46,8 @@ public class ItemScissors extends Item {
         }
     }
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, List lst) {
+        @SuppressWarnings("unchecked") List<ItemStack> list = (List<ItemStack>)lst;
         for (int i = 0; i < SCISSOR_NUMBER; i ++) {
             list.add(new ItemStack(item, 1, i));
         }
@@ -119,7 +120,8 @@ public class ItemScissors extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean f3) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List lst, boolean f3) {
+        @SuppressWarnings("unchecked") List<String> list = (List<String>)lst;
         int num = stack.getItemDamage();
         switch (num) {
             case 0:

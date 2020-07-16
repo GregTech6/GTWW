@@ -44,7 +44,8 @@ public class ItemContainer extends Item {
         }
     }
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, List lst) {
+        @SuppressWarnings("unchecked") List<ItemStack> list = (List<ItemStack>)lst;
         for (int i = 0; i < CONTAINER_NUMBER; i ++) {
             list.add(new ItemStack(item, 1, i));
         }

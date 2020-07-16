@@ -78,7 +78,8 @@ public class ItemGun extends Item {
 	    }
 	}
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List lst) {
+		@SuppressWarnings("unchecked") List<ItemStack> list = (List<ItemStack>)lst;
 	    for (int i = 0; i < WEAPON_NUMBER; i ++) {
 	        list.add(new ItemStack(item, 1, i));
 	    }
@@ -234,7 +235,8 @@ public class ItemGun extends Item {
 		return stack;
 	}
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean f3) { //idk what i'm doing anymore
+	public void addInformation(ItemStack stack, EntityPlayer player, List lst, boolean f3) { //idk what i'm doing anymore
+		@SuppressWarnings("unchecked") List<String> list = (List<String>)lst;
 		if (stack.getItemDamage() != 3 && stack.getItemDamage() != 6) {
 			list.add(LH.Chat.BLINKING_RED + "This gun has been deprecated!");
 		}

@@ -3,6 +3,7 @@ package supercoder79.gtweapons.api.materials;
 import gregapi.data.CS;
 import gregapi.data.FL;
 import gregapi.data.FM;
+import gregapi.data.MT;
 import gregapi.oredict.OreDictMaterial;
 import gregapi.render.TextureSet;
 import gregapi.util.UT;
@@ -11,6 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Set;
 
+import static gregapi.data.CS.U50;
 import static gregapi.data.TD.ItemGenerator.G_CONTAINERS;
 import static gregapi.data.TD.Properties.EXPLOSIVE;
 import static gregapi.data.TD.Properties.FLAMMABLE;
@@ -42,11 +44,11 @@ public class GTWWMaterials {
         CoalGas.setOriginalMod(MOD_ID, MOD_NAME);
         CoalGas.put(G_CONTAINERS, FLAMMABLE);
 
-        fluidMolotovMixture = UT.Fluids.create("Molotov Mixture", "Molotov Mixture", MolotovMixture, 1, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
-        fluidLiqueficatedCoal = UT.Fluids.create("Liquefacted Coal", "Liquefacted Coal", LiqueficatedCoal, 1, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
-        fluidCoalGas = UT.Fluids.create("Coal Gas", "Coal Gas", CoalGas, 2, 1000L, 300L, new Set[] { CS.FluidsGT.SIMPLE });
-        FM.Burn.addRecipe0(true, -32L, 28L, UT.Fluids.make(fluidLiqueficatedCoal, 1L), new FluidStack[]{FL.DistW.make(5L), UT.Fluids.make("carbondioxide", 10L)});
-        FM.Burn.addRecipe0(true, -64L, 12L, UT.Fluids.make(fluidCoalGas, 1L), new FluidStack[]{FL.DistW.make(10L), UT.Fluids.make("carbondioxide", 20L)});
-        FM.Gas.addRecipe0(true, -64L, 20L, UT.Fluids.make(fluidCoalGas, 1L), new FluidStack[]{FL.DistW.make(10L), UT.Fluids.make("carbondioxide", 2L)});
+        fluidMolotovMixture = FL.create("Molotov Mixture", "Molotov Mixture", MolotovMixture, 1, 1000L, 300L, CS.FluidsGT.SIMPLE);
+        fluidLiqueficatedCoal = FL.create("Liquefacted Coal", "Liquefacted Coal", LiqueficatedCoal, 1, 1000L, 300L, CS.FluidsGT.SIMPLE);
+        fluidCoalGas = FL.create("Coal Gas", "Coal Gas", CoalGas, 2, 1000L, 300L, CS.FluidsGT.SIMPLE);
+        FM.Burn.addRecipe0(true, -32L, 28L, FL.make(fluidLiqueficatedCoal, 1L), FL.DistW.make(5L), MT.CO2.gas(CS.U100, false));
+        FM.Burn.addRecipe0(true, -64L, 12L, FL.make(fluidCoalGas, 1L), FL.DistW.make(10L), MT.CO2.gas(CS.U50, false));
+        FM.Gas.addRecipe0(true, -64L, 20L, FL.make(fluidCoalGas, 1L), FL.DistW.make(10L), MT.CO2.gas(CS.U500, false));
     }
 }

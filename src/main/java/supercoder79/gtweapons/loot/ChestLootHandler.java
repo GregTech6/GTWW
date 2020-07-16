@@ -20,7 +20,7 @@ import static gregtech.loaders.c.Loader_Loot.addLoot;
 
 public class ChestLootHandler {
     public String lootType;
-    public static HashMap<String, ChestLootHandler> dungeonMap = new HashMap();
+    public static HashMap<String, ChestLootHandler> dungeonMap = new HashMap<String, ChestLootHandler>();
 
     public ChestLootHandler(String type)
     {

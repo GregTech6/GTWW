@@ -2,6 +2,7 @@ package supercoder79.gtweapons.item;
 
 import gregapi.code.ICondition.And;
 import gregapi.code.ICondition.Or;
+import gregapi.code.ITagDataContainer;
 import gregapi.data.*;
 import gregapi.item.prefixitem.PrefixItem;
 import gregapi.oredict.OreDictManager;
@@ -80,12 +81,12 @@ public class GTMetaItem {
 		prefixBulletSG.setStacksize(32);
 		prefixBulletSG.setMaterialStats(CS.U9*4);
 		prefixBulletSG.setTextureSetName("gtweaponsBulletSG");
-		prefixBulletSG.setCondition(new And(new Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
+		prefixBulletSG.setCondition(new And<ITagDataContainer>(new Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		prefixBulletSG.mByProducts.add(OM.stack(MT.Paper, OP.ingot.mAmount / 2));
 		prefixBulletSG.mByProducts.add(OM.stack(MT.Gunpowder, OP.ingot.mAmount / 2));
 		final int prefixBulletSGID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsBulletSG");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.bulletSG", prefixBulletSG){
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List aList, boolean aF3_H)
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
 			{
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 3);
@@ -98,7 +99,7 @@ public class GTMetaItem {
 		prefixMagazineHC.setLocalItemName("High Caliber ", " Bullet Magazine");
 		prefixMagazineHC.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
 		prefixMagazineHC.setStacksize(4);
-		prefixMagazineHC.setCondition(new And(new Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
+		prefixMagazineHC.setCondition(new And<ITagDataContainer>(new Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		//prefixMagazineHC.setMaterialStats(CD.U);
 		prefixMagazineHC.setMaterialStats(CS.U3 * 8);
 		prefixMagazineHC.setTextureSetName("gtweaponsMagazineHC");
@@ -108,7 +109,7 @@ public class GTMetaItem {
 
 		final int prefixMagazineHCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineHC");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineHC", prefixMagazineHC) {
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List aList, boolean aF3_H)
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
 			{
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 2);
@@ -121,7 +122,7 @@ public class GTMetaItem {
 		prefixMagazineMC.setLocalItemName("Medium Caliber ", " Bullet Magazine");
 		prefixMagazineMC.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
 		prefixMagazineMC.setStacksize(4);
-		prefixMagazineMC.setCondition(new And(new Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
+		prefixMagazineMC.setCondition(new And<ITagDataContainer>(new Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		//prefixMagazineLC.setMaterialStats(CD.U);
 		prefixMagazineMC.setMaterialStats(CS.U9 * 8);
 		prefixMagazineMC.setTextureSetName("gtweaponsMagazineMC");
@@ -130,7 +131,7 @@ public class GTMetaItem {
 		prefixMagazineMC.mByProducts.add(OM.stack(MT.Gunpowder, CS.U9 * 8));
 		final int prefixMagazineMCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineMC");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineMC", prefixMagazineMC){
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List aList, boolean aF3_H)
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
 			{
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 4);
@@ -145,7 +146,7 @@ public class GTMetaItem {
 		prefixMagazineLC.setLocalItemName("Low Caliber ", " Bullet Magazine");
 		prefixMagazineLC.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
 		prefixMagazineLC.setStacksize(4);
-		prefixMagazineLC.setCondition(new And(new Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
+		prefixMagazineLC.setCondition(new And<ITagDataContainer>(new Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		//prefixMagazineLC.setMaterialStats(CD.U);
 		prefixMagazineLC.setMaterialStats(CS.U9 * 8);
 		prefixMagazineLC.setTextureSetName("gtweaponsMagazineLC");
@@ -154,7 +155,7 @@ public class GTMetaItem {
 		prefixMagazineLC.mByProducts.add(OM.stack(MT.Gunpowder, CS.U9 * 8));
 		final int prefixMagazineLCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineLC");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineLC", prefixMagazineLC){
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List aList, boolean aF3_H)
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
 			{
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 0);

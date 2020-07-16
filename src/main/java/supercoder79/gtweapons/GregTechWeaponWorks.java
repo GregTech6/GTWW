@@ -11,6 +11,7 @@ import gregapi.block.MaterialScoopable;
 import gregapi.block.multitileentity.MultiTileEntityBlock;
 import gregapi.block.multitileentity.MultiTileEntityRegistry;
 import gregapi.code.ICondition;
+import gregapi.code.ITagDataContainer;
 import gregapi.code.ModData;
 import gregapi.data.*;
 import gregapi.oredict.OreDictMaterial;
@@ -25,6 +26,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 import supercoder79.gtweapons.api.config.ConfigHandler;
@@ -102,19 +104,19 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 		INSTANCE = this;
 	}
 
-	private static void multiblocks(MultiTileEntityRegistry aRegistry, MultiTileEntityBlock aMetal, MultiTileEntityBlock aMetalChips, MultiTileEntityBlock aMetalWires, MultiTileEntityBlock aMachine, MultiTileEntityBlock aWooden, MultiTileEntityBlock aBush, MultiTileEntityBlock aStone, MultiTileEntityBlock aWool, MultiTileEntityBlock aTNT, MultiTileEntityBlock aHive, MultiTileEntityBlock aUtilMetal, MultiTileEntityBlock aUtilStone, MultiTileEntityBlock aUtilWood, MultiTileEntityBlock aUtilWool, OreDictMaterial aMat, Class aClass) {
+	private static void multiblocks(MultiTileEntityRegistry aRegistry, MultiTileEntityBlock aMetal, MultiTileEntityBlock aMetalChips, MultiTileEntityBlock aMetalWires, MultiTileEntityBlock aMachine, MultiTileEntityBlock aWooden, MultiTileEntityBlock aBush, MultiTileEntityBlock aStone, MultiTileEntityBlock aWool, MultiTileEntityBlock aTNT, MultiTileEntityBlock aHive, MultiTileEntityBlock aUtilMetal, MultiTileEntityBlock aUtilStone, MultiTileEntityBlock aUtilWood, MultiTileEntityBlock aUtilWool, OreDictMaterial aMat, Class<? extends TileEntity> aClass) {
 		aMat = MT.SteelGalvanized;
 		//stainless steel id:18002
-		aRegistry.add("100% E-Net Proof Galvanized Steel Wall", "Multiblock Machines", 0, 17101, aClass, aMat.mToolQuality, 64, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "metalwall", "gt.designs", Integer.valueOf(3) }), new Object[] { "P", Character.valueOf('P'), MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18008) });
-		aRegistry.add("Small Galvanized Steel Tank Main Valve", "Multiblock Machines", 1, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(1296000), "gt.design", Integer.valueOf(0), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { " R ", "hMs", " R ", Character.valueOf('M'), aRegistry.getItem(0), Character.valueOf('R'), OP.ring.dat(aMat) });
-		aRegistry.add("100% E-Net Proof Dense Galvanized Steel Wall", "Multiblock Machines", 2, 17101, aClass, aMat.mToolQuality, 64, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "metalwall", "gt.designs", Integer.valueOf(3) }), new Object[] { "P", Character.valueOf('P'), MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18028) });
-		aRegistry.add("Small Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 3, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(5184000), "gt.design", Integer.valueOf(2), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { " R ", "hMs", " R ", Character.valueOf('M'), aRegistry.getItem(2), Character.valueOf('R'), OP.ring.dat(aMat) });
+		aRegistry.add("100% E-Net Proof Galvanized Steel Wall"      , "Multiblock Machines", 0, 17101, aClass                             , aMat.mToolQuality, 64, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "metalwall", "gt.designs", 3)                                                   , "P"  , 'P'              , MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18008));
+		aRegistry.add("Small Galvanized Steel Tank Main Valve"      , "Multiblock Machines", 1, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 1296000 , "gt.design", 0, "gt.gasproof", true, false), " R ", "hMs", " R ", 'M', aRegistry.getItem(0), 'R', OP.ring.dat(aMat));
+		aRegistry.add("100% E-Net Proof Dense Galvanized Steel Wall", "Multiblock Machines", 2, 17101, aClass                             , aMat.mToolQuality, 64, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "metalwall", "gt.designs", 3)                                                   , "P"  , 'P'              , MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18028));
+		aRegistry.add("Small Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 3, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 5184000 , "gt.design", 2, "gt.gasproof", true, false), " R ", "hMs", " R ", 'M', aRegistry.getItem(2), 'R', OP.ring.dat(aMat));
 		//5x5
-		aRegistry.add("Large Galvanized Steel Tank Main Valve", "Multiblock Machines", 5, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(6000000), "gt.design", Integer.valueOf(0), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { "PPP", "hMs", "PPP", 'M', aRegistry.getItem(0), 'P', OP.plateDense.dat(aMat) });
-		aRegistry.add("Large Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 6, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(6.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.texture", "tankmetal", "gt.tankcap", Integer.valueOf(24000000), "gt.design", Integer.valueOf(2), "gt.gasproof", Boolean.valueOf(true), Boolean.valueOf(false) }), new Object[] { "PPP", "hMs", "PPP", 'M', aRegistry.getItem(2), 'P', OP.plateDense.dat(aMat) });
+		aRegistry.add("Large Galvanized Steel Tank Main Valve"      , "Multiblock Machines", 5, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 6000000 , "gt.design", 0, "gt.gasproof", true, false), "PPP", "hMs", "PPP", 'M', aRegistry.getItem(0), 'P', OP.plateDense.dat(aMat));
+		aRegistry.add("Large Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 6, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 24000000, "gt.design", 2, "gt.gasproof", true, false), "PPP", "hMs", "PPP", 'M', aRegistry.getItem(2), 'P', OP.plateDense.dat(aMat));
 
 		//not a multiblock, but whatever :P
-		aRegistry.add("Galvanized Steel Drum", "Fluid Containers", 4, 32719, MultiTileEntityBarrelMetal.class, 0, 16, aUtilMetal, UT.NBT.make(null, new Object[] { "gt.material", aMat, "gt.hardness", Float.valueOf(1.0F), "gt.resistance", Float.valueOf(6.0F), "gt.color", Integer.valueOf(UT.Code.getRGBInt(aMat.fRGBaSolid)), "gt.tankcap", Integer.valueOf(48000), "gt.gasproof", Boolean.valueOf(true) }), new Object[] { " h ", "PSP", "PSP", Character.valueOf('P'), OP.plateCurved.dat(aMat), Character.valueOf('S'), OP.stickLong.dat(aMat) });
+		aRegistry.add("Galvanized Steel Drum", "Fluid Containers", 4, 32719, MultiTileEntityBarrelMetal.class, 0, 16, aUtilMetal, UT.NBT.make("gt.material", aMat, "gt.hardness",1.0F, "gt.resistance",6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.tankcap", 48000, "gt.gasproof", true), " h ", "PSP", "PSP", 'P', OP.plateCurved.dat(aMat), 'S', OP.stickLong.dat(aMat));
 	}
 
 	@Override
@@ -207,27 +209,27 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 	@Override
 	public void onModPostInit2(cpw.mods.fml.common.event.FMLPostInitializationEvent aEvent) {
 		ChestLootHandler.init(); // loads dungeon loot
-		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtSmall, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineLC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
-		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtMedium, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineMC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
-		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtLarge, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineHC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtSmall, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineLC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And<ITagDataContainer>(new ICondition.Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtMedium, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineMC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And<ITagDataContainer>(new ICondition.Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Boxinator.add(new RecipeMapHandlerPrefix(OP.bulletGtLarge, 8L, CS.NF, 16L, 64L, 0L, CS.NF, GTMetaItem.prefixMagazineHC, 1L, new ItemStack(ModItems.container, 1, 0), CS.NI, true, false, false, new ICondition.And<ITagDataContainer>(new ICondition.Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
 
-		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineLC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtSmall, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
-		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineMC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtMedium, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
-		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineHC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtLarge, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And(new ICondition.Or(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
-		RM.Mixer.addRecipe0(true, 16, 64, new FluidStack[]{MT.Kerosine.liquid(CS.U10*4, true), MT.Petrol.liquid(CS.U10*4*4, true)}, UT.Fluids.make(fluidMolotovMixture, 2000), CS.ZL_IS);
-        RM.Canner.addRecipe1(true, 64, 128, new ItemStack(Items.glass_bottle, 1), UT.Fluids.make(fluidMolotovMixture, 500), CS.NF, new ItemStack(ModItems.grenade, 1, 2));
+		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineLC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtSmall, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And<ITagDataContainer>(new ICondition.Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineMC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtMedium, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And<ITagDataContainer>(new ICondition.Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Unboxinator.add(new RecipeMapHandlerPrefix(GTMetaItem.prefixMagazineHC, 1L, CS.NF, 16L, 128L, 0L, CS.NF, OP.bulletGtLarge, 8L,  CS.NI, new ItemStack(ModItems.container, 1, 0),true, false, false, new ICondition.And<ITagDataContainer>(new ICondition.Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS)));
+		RM.Mixer.addRecipe0(true, 16, 64, new FluidStack[]{MT.Kerosine.liquid(CS.U10*4, true), MT.Petrol.liquid(CS.U10*4*4, true)}, FL.make(fluidMolotovMixture, 2000), CS.ZL_IS);
+        RM.Canner.addRecipe1(true, 64, 128, new ItemStack(Items.glass_bottle, 1), FL.make(fluidMolotovMixture, 500), CS.NF, new ItemStack(ModItems.grenade, 1, 2));
 		RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 0), OP.dustTiny.mat(MT.Gunpowder, 1), OP.bulletGtSmall.mat(MT.Empty, 1));
         RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 1), OP.dustTiny.mat(MT.Gunpowder, 2), OP.bulletGtMedium.mat(MT.Empty, 1));
         RM.Boxinator.addRecipe2(true, 32, 8, new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 3), OP.bulletGtLarge.mat(MT.Empty, 1));
 
-        RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.Water.make(25), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
-		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.Water.make(10), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
-		RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.DistW.make(25), UT.Fluids.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
-		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.DistW.make(10), UT.Fluids.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
+        RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.Water.make(25), FL.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.Water.make(10), FL.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 16, OP.dust.mat(MT.Coal, 1), FL.DistW.make(25), FL.make(fluidLiqueficatedCoal, 25), CS.ZL_IS);
+		RM.BurnMixer.addRecipe1(true, 64, 8, OP.dust.mat(MT.Lignite, 1), FL.DistW.make(10), FL.make(fluidLiqueficatedCoal, 10), CS.ZL_IS);
 
-		RM.DistillationTower.addRecipeX(true, 64, 32, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidLiqueficatedCoal, 50)}, new FluidStack[]{MT.Fuel.liquid(CS.U1000*30, true), MT.Diesel.liquid(CS.U1000*30, true), MT.Kerosine.liquid(CS.U1000*20, true), UT.Fluids.make(fluidCoalGas, 100)}, OP.dustSmall.mat(MT.Asphalt, 1));
+		RM.DistillationTower.addRecipeX(true, 64, 32, CS.ZL_IS, new FluidStack[]{FL.make(fluidLiqueficatedCoal, 50)}, new FluidStack[]{MT.Fuel.liquid(CS.U1000*30, true), MT.Diesel.liquid(CS.U1000*30, true), MT.Kerosine.liquid(CS.U1000*20, true), FL.make(fluidCoalGas, 100)}, OP.dustSmall.mat(MT.Asphalt, 1));
 		//God damn it greg
-        //RM.DistillationTower.addRecipeX(true, 256, 640, CS.ZL_IS, new FluidStack[]{UT.Fluids.make(fluidCoalGas, 1250L)}, new FluidStack[]{FL.DistW.make(1250L), MT.Petrol.liquid(CS.U20*10, true), MT.Butane.gas(CS.U20*20, true), MT.Propane.gas(CS.U20*15, true)});
+        //RM.DistillationTower.addRecipeX(true, 256, 640, CS.ZL_IS, new FluidStack[]{FL.make(fluidCoalGas, 1250L)}, new FluidStack[]{FL.DistW.make(1250L), MT.Petrol.liquid(CS.U20*10, true), MT.Butane.gas(CS.U20*20, true), MT.Propane.gas(CS.U20*15, true)});
 
         //Thorium shit
 

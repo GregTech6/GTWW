@@ -56,7 +56,7 @@ public class TileTurret extends TileEntity implements ITileEntityEnergy {
         if (this.worldObj.getTotalWorldTime() % 20 == 0) {
             points = new ArrayList<Point3D>();
             Point3D loc = new Point3D(this.xCoord, this.yCoord, this.zCoord);
-            List<EntityLivingBase> hostileList = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(this.xCoord - 10, this.yCoord - 10, this.zCoord - 10, this.xCoord + 10, this.yCoord + 10, this.zCoord + 10));
+            @SuppressWarnings("unchecked") List<EntityLivingBase> hostileList = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(this.xCoord - 10, this.yCoord - 10, this.zCoord - 10, this.xCoord + 10, this.yCoord + 10, this.zCoord + 10));
             for (EntityLivingBase z: hostileList) {
                 points.add(new Point3D(z.posX, z.posY, z.posZ));
             }

@@ -40,7 +40,7 @@ idea{
 
 apply plugin: 'forge'
 
-version = "<UNKNOWN>" // 0.2.0a
+version = "<UNKNOWN>"
 group = "supercoder79.gtweapons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "gtweapons"
 

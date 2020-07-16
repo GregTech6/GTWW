@@ -1,7 +1,5 @@
 package supercoder79.gtweapons.api.data.gun;
 
-import javafx.scene.input.PickResult;
-
 import java.util.HashMap;
 import java.util.Map;
 

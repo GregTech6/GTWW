@@ -104,24 +104,9 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 		INSTANCE = this;
 	}
 
-	private static void multiblocks(MultiTileEntityRegistry aRegistry, MultiTileEntityBlock aMetal, MultiTileEntityBlock aMetalChips, MultiTileEntityBlock aMetalWires, MultiTileEntityBlock aMachine, MultiTileEntityBlock aWooden, MultiTileEntityBlock aBush, MultiTileEntityBlock aStone, MultiTileEntityBlock aWool, MultiTileEntityBlock aTNT, MultiTileEntityBlock aHive, MultiTileEntityBlock aUtilMetal, MultiTileEntityBlock aUtilStone, MultiTileEntityBlock aUtilWood, MultiTileEntityBlock aUtilWool, OreDictMaterial aMat, Class<? extends TileEntity> aClass) {
-		aMat = MT.SteelGalvanized;
-		//stainless steel id:18002
-		aRegistry.add("100% E-Net Proof Galvanized Steel Wall"      , "Multiblock Machines", 0, 17101, aClass                             , aMat.mToolQuality, 64, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "metalwall", "gt.designs", 3)                                                   , "P"  , 'P'              , MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18008));
-		aRegistry.add("Small Galvanized Steel Tank Main Valve"      , "Multiblock Machines", 1, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 1296000 , "gt.design", 0, "gt.gasproof", true, false), " R ", "hMs", " R ", 'M', aRegistry.getItem(0), 'R', OP.ring.dat(aMat));
-		aRegistry.add("100% E-Net Proof Dense Galvanized Steel Wall", "Multiblock Machines", 2, 17101, aClass                             , aMat.mToolQuality, 64, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "metalwall", "gt.designs", 3)                                                   , "P"  , 'P'              , MultiTileEntityRegistry.getRegistry("gt.multitileentity").getItem(18028));
-		aRegistry.add("Small Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 3, 17101, MultiTileEntityTank3x3x3Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 5184000 , "gt.design", 2, "gt.gasproof", true, false), " R ", "hMs", " R ", 'M', aRegistry.getItem(2), 'R', OP.ring.dat(aMat));
-		//5x5
-		aRegistry.add("Large Galvanized Steel Tank Main Valve"      , "Multiblock Machines", 5, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 6000000 , "gt.design", 0, "gt.gasproof", true, false), "PPP", "hMs", "PPP", 'M', aRegistry.getItem(0), 'P', OP.plateDense.dat(aMat));
-		aRegistry.add("Large Dense Galvanized Steel Tank Main Valve", "Multiblock Machines", 6, 17101, MultiTileEntityTank5x5x5Metal.class, aMat.mToolQuality, 16, aMachine, UT.NBT.make("gt.material", aMat, "gt.hardness", 6.0F, "gt.resistance", 6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.texture", "tankmetal", "gt.tankcap", 24000000, "gt.design", 2, "gt.gasproof", true, false), "PPP", "hMs", "PPP", 'M', aRegistry.getItem(2), 'P', OP.plateDense.dat(aMat));
-
-		//not a multiblock, but whatever :P
-		aRegistry.add("Galvanized Steel Drum", "Fluid Containers", 4, 32719, MultiTileEntityBarrelMetal.class, 0, 16, aUtilMetal, UT.NBT.make("gt.material", aMat, "gt.hardness",1.0F, "gt.resistance",6.0F, "gt.color", UT.Code.getRGBInt(aMat.fRGBaSolid), "gt.tankcap", 48000, "gt.gasproof", true), " h ", "PSP", "PSP", 'P', OP.plateCurved.dat(aMat), 'S', OP.stickLong.dat(aMat));
-	}
-
 	@Override
 	public void onModPreInit2(FMLPreInitializationEvent aEvent) {
-		System.out.println("--- Start SuperCoder pretending he knows how to code ---");
+		System.out.println("--- GTWW Loading ---");
 		new MultiTileEntityRegistry("gtww.multitiles");
 		ConfigHandler.loadConfig();
 
@@ -135,30 +120,6 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
         ModBlocks.init(); //inits blocks
         ModTiles.init(); //inits tile entities
 		GTWWMaterials.init(); //inits materials
-
-
-
-		//** Start copied code
-		MultiTileEntityBlock Metal = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "iron", Material.iron, Block.soundTypeMetal, "pickaxe", 0, 0, 15, false, false);
-		MultiTileEntityBlock MetalChips = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "iron", Material.iron, Block.soundTypeMetal, "shovel", 0, 0, 15, false, false);
-		MultiTileEntityBlock MetalWires = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "machine", MaterialMachines.instance, Block.soundTypeMetal, "cutter", 0, 0, 15, false, false);
-		MultiTileEntityBlock Machine = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "machine", MaterialMachines.instance, Block.soundTypeMetal, "wrench", 0, 0, 15, false, false);
-		MultiTileEntityBlock Wooden = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "wood", Material.wood, Block.soundTypeWood, "axe", 0, 0, 15, false, false);
-		MultiTileEntityBlock Bush = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "leaves", Material.leaves, Block.soundTypeGrass, "axe", 0, 0, 15, false, false);
-		MultiTileEntityBlock Stone = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "rock", Material.rock, Block.soundTypeStone, "pickaxe", 0, 0, 15, false, false);
-		MultiTileEntityBlock Wool = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "cloth", Material.cloth, Block.soundTypeCloth, "shears", 0, 0, 15, false, false);
-		MultiTileEntityBlock TNT = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "tnt", Material.tnt, Block.soundTypeGrass, "pickaxe", 0, 0, 15, false, false);
-		MultiTileEntityBlock UtilMetal = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight, Block.soundTypeMetal, "pickaxe", 0, 0, 15, false, false);
-		MultiTileEntityBlock UtilStone = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight, Block.soundTypeStone, "pickaxe", 0, 0, 15, false, false);
-		MultiTileEntityBlock UtilWood = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight, Block.soundTypeWood, "axe", 0, 0, 15, false, false);
-		MultiTileEntityBlock UtilWool = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "redstoneLight", Material.redstoneLight, Block.soundTypeCloth, "shears", 0, 0, 15, false, false);
-		MultiTileEntityBlock Hive = MultiTileEntityBlock.getOrCreate(MD.GT.mID, "rock", MaterialScoopable.instance, Block.soundTypeWood, "scoop", 0, 0, 15, false, false);
-		//** End copied code
-
-		MultiTileEntityRegistry multitiles = MultiTileEntityRegistry.getRegistry("gtww.multitiles"); // dont change or get an angry bear that wants to kill you
-
-		multiblocks(multitiles, Metal, MetalChips, MetalWires, Machine, Wooden, Bush, Stone, Wool, TNT, UtilMetal, UtilStone, UtilWood, UtilWool, Hive, MT.NULL, MultiTileEntityMultiBlockPart.class);
-
 	}
 	
 	@Override
@@ -191,14 +152,14 @@ public final class GregTechWeaponWorks extends Abstract_Mod {
 		CR.shapeless(OP.bulletGtLarge.mat(MT.Empty, 1), CR.DEF, new Object[]{new ItemStack(ModItems.ejectedBullet, 1, 2), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1), OP.dustTiny.mat(MT.Gunpowder, 1)});
 
 		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 4), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'D', OP.plateDouble.mat(MT.Bronze, 1), 'S', OP.screw.mat(MT.Bronze, 1), 'T', new ItemStack(Items.stick, 1));
-        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 5), CR.DEF, "WSW", "hWR", "sQT", 'W', OP.plate.mat(MT.WoodSealed, 1), 'S', OP.plate.mat(MT.Steel, 1), 'R', OP.screw.mat(MT.Steel, 1), 'Q', OP.bolt.mat(MT.Steel, 1), 'T', new ItemStack(Items.stick, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 5), CR.DEF, "WSW", "hWR", "sQT", 'W', OP.plate.mat(MT.WoodTreated, 1), 'S', OP.plate.mat(MT.Steel, 1), 'R', OP.screw.mat(MT.Steel, 1), 'Q', OP.bolt.mat(MT.Steel, 1), 'T', new ItemStack(Items.stick, 1));
         CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 29), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Steel, 1), 'D', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.Fe, 1), 'T', OP.stick.mat(MT.Bronze, 1));
 		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 29), CR.DEF, "PPD", "dST", "hfT", 'P', OP.plateCurved.mat(MT.Steel, 1), 'D', OP.plateDouble.mat(MT.Steel, 1), 'S', OP.screw.mat(MT.WroughtIron, 1), 'T', OP.stick.mat(MT.Bronze, 1));
         CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 27), CR.DEF, "PPS", "TTH", "hfH", 'P', OP.plateCurved.mat(MT.Steel, 1), 'S', OP.plate.mat(MT.Steel, 1), 'T', OP.stick.mat(MT.Fe, 1), 'H', OP.stick.mat(MT.Bronze, 1));
 		CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 27), CR.DEF, "PPS", "TTH", "hfH", 'P', OP.plateCurved.mat(MT.Steel, 1), 'S', OP.plate.mat(MT.Steel, 1), 'T', OP.stick.mat(MT.WroughtIron, 1), 'H', OP.stick.mat(MT.Bronze, 1));
         CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 9), CR.DEF, "PPL", "TTS", "Shf", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'L', OP.plateDouble.mat(MT.Bronze, 1), 'T', OP.stick.mat(MT.Bronze, 1), 'S', new ItemStack(Items.stick, 1));
-        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 6), CR.DEF, "PIL", "TLT", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'I', OP.stick.mat(MT.Fe, 1), 'L', OP.plate.mat(MT.WoodSealed, 1), 'T', OP.stick.mat(MT.Bronze, 1));
-        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 6), CR.DEF, "PIL", "TLT", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'I', OP.stick.mat(MT.WroughtIron, 1), 'L', OP.plate.mat(MT.WoodSealed, 1), 'T', OP.stick.mat(MT.Bronze, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 6), CR.DEF, "PIL", "TLT", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'I', OP.stick.mat(MT.Fe, 1), 'L', OP.plate.mat(MT.WoodTreated, 1), 'T', OP.stick.mat(MT.Bronze, 1));
+        CR.shaped(new ItemStack(ModItems.unlockableGun, 1, 6), CR.DEF, "PIL", "TLT", "hfT", 'P', OP.plateCurved.mat(MT.Bronze, 1), 'I', OP.stick.mat(MT.WroughtIron, 1), 'L', OP.plate.mat(MT.WoodTreated, 1), 'T', OP.stick.mat(MT.Bronze, 1));
 
         CR.shaped(new ItemStack(ModBlocks.teslas.get(0), 1), CR.DEF, "RwS", "BCB", "ShR", 'C', OP.casingMachine.dat(MT.SteelGalvanized), 'B', OP.wireGt16.dat(MT.Cu), 'S', OP.stick.mat(MT.Steel, 1), 'R', OP.ring.mat(MT.Steel, 1));
 

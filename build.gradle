@@ -3,8 +3,8 @@ buildscript {
 		mavenCentral()
 		jcenter()
 		maven {
-			name = "forge"
-			url = "http://files.minecraftforge.net/maven"
+			name = "gt6"
+			url = "https://gregtech.overminddl1.com/"
 		}
 		maven {
 			name = "sonatype"
@@ -55,12 +55,11 @@ minecraft {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-compileJava.options.bootClasspath = org.gradle.internal.jvm.Jvm.current().getJre().getHomeDir().toString() +"/lib/rt.jar"
 
 repositories {
 	maven {
 		name = "gt"
-		url = "http://gregtech.overminddl1.com/"
+		url = "https://gregtech.overminddl1.com/"
 	}
 }
 
@@ -249,4 +248,3 @@ if (!project.buildInfo.tag.contains("-dirty") && (System.getenv().ONLY_RELEASES!
 		}
 	}
 }
-

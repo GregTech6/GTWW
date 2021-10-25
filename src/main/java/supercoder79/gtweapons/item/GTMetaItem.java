@@ -124,11 +124,11 @@ public class GTMetaItem {
 		prefixMagazineMC.setStacksize(4);
 		prefixMagazineMC.setCondition(new And<ITagDataContainer>(new Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		//prefixMagazineLC.setMaterialStats(CD.U);
-		prefixMagazineMC.setMaterialStats(CS.U9 * 8);
+		prefixMagazineMC.setMaterialStats(CS.U9 * 16);
 		prefixMagazineMC.setTextureSetName("gtweaponsMagazineMC");
 		prefixMagazineMC.mByProducts.add(OM.stack(MT.Steel, CS.U * 2));
-		prefixMagazineMC.mByProducts.add(OM.stack(MT.Brass, CS.U9 * 8));
-		prefixMagazineMC.mByProducts.add(OM.stack(MT.Gunpowder, CS.U9 * 8));
+		prefixMagazineMC.mByProducts.add(OM.stack(MT.Brass, CS.U9 * 16));
+		prefixMagazineMC.mByProducts.add(OM.stack(MT.Gunpowder, CS.U9 * 16));
 		final int prefixMagazineMCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineMC");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineMC", prefixMagazineMC){
 			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)

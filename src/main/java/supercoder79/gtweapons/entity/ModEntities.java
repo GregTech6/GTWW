@@ -20,14 +20,14 @@ import supercoder79.gtweapons.item.ModItems;
  */
 public class ModEntities {
 
-    public static void init(){
-        EntityRegistry.registerModEntity(EntityBullet.class, "Bullet", 0, GregTechWeaponWorks.INSTANCE, 64, 10, true);
-        EntityRegistry.registerModEntity(EntityGrenade.class, "Grenade", 1, GregTechWeaponWorks.INSTANCE, 64, 10, true);
-    }
+	public static void init() {
+		EntityRegistry.registerModEntity(EntityBullet.class, "Bullet", 0, GregTechWeaponWorks.INSTANCE, 64, 10, true);
+		EntityRegistry.registerModEntity(EntityGrenade.class, "Grenade", 1, GregTechWeaponWorks.INSTANCE, 64, 10, true);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public static void render(){
-        RenderingRegistry.registerEntityRenderingHandler(EntityBullet.class, new RenderBullet(OP.round.mat(MT.Steel, 1).getItem())); //<- Man, GT5u breaks everything...
-        RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(new ItemStack(ModItems.grenade, 1).getItem()));
-    }
+	@SideOnly(Side.CLIENT)
+	public static void render() {
+		RenderingRegistry.registerEntityRenderingHandler(EntityBullet.class, new RenderBullet(OP.round.mat(MT.Steel, 1).getItem())); //<- Man, GT5u breaks everything...
+		RenderingRegistry.registerEntityRenderingHandler(EntityGrenade.class, new RenderSnowball(new ItemStack(ModItems.grenade, 1).getItem()));
+	}
 }

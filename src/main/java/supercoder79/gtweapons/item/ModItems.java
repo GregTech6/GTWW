@@ -12,6 +12,7 @@ public class ModItems {
 	public static Item pvpPotion;
 	public static Item grenade;
 	public static Item ejectedBullet;
+
 	public static void init() {
 		GameRegistry.registerItem(gun = new ItemGun("gun"), "gun");
 		GameRegistry.registerItem(container = new ItemContainer("container"), "container");

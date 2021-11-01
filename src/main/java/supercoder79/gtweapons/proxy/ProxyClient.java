@@ -6,9 +6,9 @@ import gregapi.api.Abstract_Proxy;
 import supercoder79.gtweapons.entity.ModEntities;
 
 public final class ProxyClient extends Abstract_Proxy {
-    @Override
-    public void onProxyAfterInit(Abstract_Mod aMod, FMLInitializationEvent aEvent){
-        ModEntities.render(); //inits entity renders
-    }
+	@Override
+	public void onProxyAfterInit(Abstract_Mod aMod, FMLInitializationEvent aEvent) {
+		ModEntities.render(); //inits entity renders
+	}
 
 }

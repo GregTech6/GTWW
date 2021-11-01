@@ -28,7 +28,7 @@ public class GTMetaItem {
 	public static OreDictPrefix prefixBulletSG;
 
 
-	public static void init(){
+	public static void init() {
 		addDataToNormalItems(); // look at the function name, dummy
 //		final OreDictPrefix prefixBulletHC = OreDictPrefix.createPrefix("gtweaponsBulletHC");
 //		prefixBulletHC.setCategoryName("High Caliber Bullets");
@@ -79,18 +79,17 @@ public class GTMetaItem {
 		prefixBulletSG.setLocalItemName("", " Blunderbuss shot");
 		prefixBulletSG.add(UNIFICATABLE, RECYCLABLE, SCANNABLE);
 		prefixBulletSG.setStacksize(32);
-		prefixBulletSG.setMaterialStats(CS.U9*4);
+		prefixBulletSG.setMaterialStats(CS.U9 * 4);
 		prefixBulletSG.setTextureSetName("gtweaponsBulletSG");
 		prefixBulletSG.setCondition(new And<ITagDataContainer>(new Or<ITagDataContainer>(TD.Atomic.METAL, TD.Compounds.ALLOY), TD.Properties.HAS_TOOL_STATS));
 		prefixBulletSG.mByProducts.add(OM.stack(MT.Paper, OP.ingot.mAmount / 2));
 		prefixBulletSG.mByProducts.add(OM.stack(MT.Gunpowder, OP.ingot.mAmount / 2));
 		final int prefixBulletSGID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsBulletSG");
-		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.bulletSG", prefixBulletSG){
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
-			{
+		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.bulletSG", prefixBulletSG) {
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H) {
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 3);
-				aList.add(LH.Chat.WHITE + "Damage: " + LH.Chat.BLUE  + tCombat + LH.Chat.RED + " (" + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
+				aList.add(LH.Chat.WHITE + "Damage: " + LH.Chat.BLUE + tCombat + LH.Chat.RED + " (" + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
 			}
 		};
 
@@ -109,11 +108,10 @@ public class GTMetaItem {
 
 		final int prefixMagazineHCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineHC");
 		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineHC", prefixMagazineHC) {
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
-			{
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H) {
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 2);
-				aList.add(LH.Chat.WHITE + "Damage (Sniper): " + LH.Chat.BLUE  + tCombat + LH.Chat.RED + " (" + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
+				aList.add(LH.Chat.WHITE + "Damage (Sniper): " + LH.Chat.BLUE + tCombat + LH.Chat.RED + " (" + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
 			}
 		};
 
@@ -130,14 +128,13 @@ public class GTMetaItem {
 		prefixMagazineMC.mByProducts.add(OM.stack(MT.Brass, CS.U9 * 16));
 		prefixMagazineMC.mByProducts.add(OM.stack(MT.Gunpowder, CS.U9 * 16));
 		final int prefixMagazineMCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineMC");
-		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineMC", prefixMagazineMC){
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
-			{
+		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineMC", prefixMagazineMC) {
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H) {
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 4);
 				float tCombat2 = MatHelpers.getDamageFromMaterial(mat.mID, 5);
-				aList.add(LH.Chat.WHITE + "Damage (Assault Rifle): " + LH.Chat.BLUE  + tCombat + LH.Chat.RED + " ( " + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
-				aList.add(LH.Chat.WHITE + "Damage (Burst Rifle): " + LH.Chat.BLUE  + tCombat2 + LH.Chat.RED + " (" + (tCombat2) / 2.0F + " Hearts)" + LH.Chat.GRAY);
+				aList.add(LH.Chat.WHITE + "Damage (Assault Rifle): " + LH.Chat.BLUE + tCombat + LH.Chat.RED + " ( " + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
+				aList.add(LH.Chat.WHITE + "Damage (Burst Rifle): " + LH.Chat.BLUE + tCombat2 + LH.Chat.RED + " (" + (tCombat2) / 2.0F + " Hearts)" + LH.Chat.GRAY);
 			}
 		};
 
@@ -154,14 +151,13 @@ public class GTMetaItem {
 		prefixMagazineLC.mByProducts.add(OM.stack(MT.Brass, CS.U9 * 8));
 		prefixMagazineLC.mByProducts.add(OM.stack(MT.Gunpowder, CS.U9 * 8));
 		final int prefixMagazineLCID = TextureSet.addToAll(GregTechWeaponWorks.MOD_ID, true, "gtweaponsMagazineLC");
-		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineLC", prefixMagazineLC){
-			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H)
-			{
+		new PrefixItem(GregTechWeaponWorks.MOD_DATA, "gtweapons.meta.item.magazineLC", prefixMagazineLC) {
+			public void func_77624_a(ItemStack aStack, EntityPlayer aPlayer, List<String> aList, boolean aF3_H) {
 				OreDictMaterial mat = OreDictManager.INSTANCE.getItemData(aStack).mMaterial.mMaterial;
 				float tCombat = MatHelpers.getDamageFromMaterial(mat.mID, 0);
 				float tCombat2 = MatHelpers.getDamageFromMaterial(mat.mID, 1);
-				aList.add(LH.Chat.WHITE + "Damage (Pistol): " + LH.Chat.BLUE  + tCombat + LH.Chat.RED + " ( " + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
-				aList.add(LH.Chat.WHITE + "Damage (SMG): " + LH.Chat.BLUE  + tCombat2 + LH.Chat.RED + " (" + (tCombat2) / 2.0F + " Hearts)" + LH.Chat.GRAY);
+				aList.add(LH.Chat.WHITE + "Damage (Pistol): " + LH.Chat.BLUE + tCombat + LH.Chat.RED + " ( " + (tCombat) / 2.0F + " Hearts)" + LH.Chat.GRAY);
+				aList.add(LH.Chat.WHITE + "Damage (SMG): " + LH.Chat.BLUE + tCombat2 + LH.Chat.RED + " (" + (tCombat2) / 2.0F + " Hearts)" + LH.Chat.GRAY);
 			}
 		};
 
@@ -185,20 +181,21 @@ public class GTMetaItem {
 		// PRP
 		// DpD
 //		prefixBulletLC.addListener(new ShapelessCraftFrom( 1, null, new String[][] {{"XWX", "hVf", "   "}}, OP.plateCurved, null, null, Items.gunpowder, OP.round.dat(OreDictMaterial.MATERIAL_ARRAY[MT.Pb.mID]), TD.Atomic.ANTIMATTER.NOT));
-		prefixBulletSG.addListener(new ShapelessCraftFrom( 1, null, new String[][] {{" X ", "XVX", " X "}}, OP.nugget, null, null, new ItemStack(ModItems.container, 1, 1), null, TD.Atomic.ANTIMATTER.NOT));
+		prefixBulletSG.addListener(new ShapelessCraftFrom(1, null, new String[][]{{" X ", "XVX", " X "}}, OP.nugget, null, null, new ItemStack(ModItems.container, 1, 1), null, TD.Atomic.ANTIMATTER.NOT));
 
-		prefixMagazineLC.addListener(new ShapelessCraftFrom( 1, null, new String[][] {{"XXX", "XVX", "XXX"}}, OP.bulletGtSmall, null, null, new ItemStack(ModItems.container, 1, 0), null, TD.Atomic.ANTIMATTER.NOT));
-		prefixMagazineHC.addListener(new ShapelessCraftFrom( 1, null, new String[][] {{"XXX", "XVX", "XXX"}}, OP.bulletGtLarge, null, null, new ItemStack(ModItems.container, 1, 0), null, TD.Atomic.ANTIMATTER.NOT));
-		prefixMagazineMC.addListener(new ShapelessCraftFrom( 1, null, new String[][] {{"XXX", "XVX", "XXX"}}, OP.bulletGtMedium, null, null, new ItemStack(ModItems.container, 1, 0), null, TD.Atomic.ANTIMATTER.NOT));
+		prefixMagazineLC.addListener(new ShapelessCraftFrom(1, null, new String[][]{{"XXX", "XVX", "XXX"}}, OP.bulletGtSmall, null, null, new ItemStack(ModItems.container, 1, 0), null, TD.Atomic.ANTIMATTER.NOT));
+		prefixMagazineHC.addListener(new ShapelessCraftFrom(1, null, new String[][]{{"XXX", "XVX", "XXX"}}, OP.bulletGtLarge, null, null, new ItemStack(ModItems.container, 1, 0), null, TD.Atomic.ANTIMATTER.NOT));
+		prefixMagazineMC.addListener(new ShapelessCraftFrom(1, null, new String[][]{{"XXX", "XVX", "XXX"}}, OP.bulletGtMedium, null, null, new ItemStack(ModItems.container, 1, 0), null, TD.Atomic.ANTIMATTER.NOT));
 //		RM.Press.addRecipeX(false, 120,600, new ItemStack[] {}, new ItemStack(prefixMagazineHC));
 
 	}
-	public static void addDataToNormalItems(){
-		OM.data(ST.make(ModItems.container, 1,0), MT.Steel, CS.U*2); // steel magazine casing
+
+	public static void addDataToNormalItems() {
+		OM.data(ST.make(ModItems.container, 1, 0), MT.Steel, CS.U * 2); // steel magazine casing
 		//empty shotgun shell - 0.5 paper and 0.111 brass
-		OM.data(ST.make(ModItems.container, 1,1), MT.Paper, CS.U/2, OM.stack(MT.Brass, CS.U/9));
+		OM.data(ST.make(ModItems.container, 1, 1), MT.Paper, CS.U / 2, OM.stack(MT.Brass, CS.U / 9));
 		OM.data(ST.make(ModItems.ejectedBullet, 1, 0), MT.Brass, CS.U9);
-		OM.data(ST.make(ModItems.ejectedBullet, 1, 1), MT.Brass, CS.U9*2);
+		OM.data(ST.make(ModItems.ejectedBullet, 1, 1), MT.Brass, CS.U9 * 2);
 		OM.data(ST.make(ModItems.ejectedBullet, 1, 2), MT.Brass, CS.U3);
 	}
 }
